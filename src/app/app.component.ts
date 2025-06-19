@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { NavbarComponent } from './components/navbar/navbar/navbar.component';
 
@@ -11,4 +11,16 @@ import { NavbarComponent } from './components/navbar/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'projeto-tcc';
+
+
+  constructor(private router: Router) { }
+
+  redirecionarCadastro() {
+    // carregando/navegando para a rota /cadastro
+    this.router.navigate(["/cadastro"])
+  }
+
+  redirecionarHome() {
+    this.router.navigate(["/"])
+  }
 }

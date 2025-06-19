@@ -39,6 +39,10 @@ export class NavbarComponent {
       {
         label: 'Combos'
       },
+      {
+        label: 'Cadastro',
+        command: () =>this.navegar("/cadastro")
+      }
     ]
   }
 
