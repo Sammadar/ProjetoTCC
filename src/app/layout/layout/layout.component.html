@@ -1,0 +1,10 @@
+<!-- src/app/layout/layout.component.html -->
+<app-header (darkModeChange)="onDarkModeChange($event)"></app-header>
+
+<main class="layout-wrapper">
+  <section class="app-content">
+    <router-outlet></router-outlet>
+  </section>
+</main>
+
+<app-footer></app-footer>
