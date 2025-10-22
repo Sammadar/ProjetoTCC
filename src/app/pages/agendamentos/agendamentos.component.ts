@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabViewModule } from 'primeng/tabview';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePicker } from 'primeng/datepicker';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
+import { TabsClasses } from 'primeng/tabs';
+import { TabsModule } from 'primeng/tabs';
+import { TextareaModule } from 'primeng/textarea';
 
 
 interface Agendamento {
@@ -44,16 +46,16 @@ interface Patient {
   imports: [
     CommonModule,
     FormsModule,
-    TabViewModule,
     TableModule,
     ButtonModule,
     DialogModule,
     InputTextModule,
-    CalendarModule,
+    TextareaModule ,
+    DatePicker,
     CardModule,
     TagModule,
     SelectModule,
-    InputTextModule
+    TabsModule,
   ],
   templateUrl: './agendamentos.component.html',
   styleUrl: './agendamentos.component.scss'

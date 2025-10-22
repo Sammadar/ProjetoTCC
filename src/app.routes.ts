@@ -1,19 +1,17 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './app/layout/layout/layout.component';
+import { AppLayout } from './app/layout/component/app.layout';
+import { Notfound } from './app/pages/notfound/notfound';
 
-
-export const routes: Routes = [
-  {
-    path: '',
-    component: LayoutComponent,
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', loadComponent: () => import('./app/pages/dashboard/dashboard.component').then(m => m.DashboardComponent) },
-      { path: 'agendamentos', loadComponent: () => import('./app/pages/agendamentos/agendamentos.component').then(m => m.AgendamentosComponent) },
-      { path: 'configuracoes', loadComponent: () => import('./app/pages/configuracoes/configuracoes.component').then(m => m.ConfiguracoesComponent) },
-      {path: 'pacientes', loadComponent: () => import('./app/pages/pacientes/pacientes.component').then(m => m.PacientesComponent)  }
-    ]
-  },
-   { path: '**', redirectTo: 'dashboard' }
+export const appRoutes: Routes = [
+    {
+        path: '',
+        component: AppLayout,
+        children: [
+            // { path: '', component: Dashboard },
+            { path: '', loadChildren: () => import('./app/pages/pages.routes') }
+        ]
+    },
+    { path: 'notfound', component: Notfound },
+    { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes') },
+    { path: '**', redirectTo: '/notfound' }
 ];

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabViewModule } from 'primeng/tabview';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
-import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { FormsModule } from '@angular/forms';
+import { TabsModule } from 'primeng/tabs';
+import { DatePickerModule } from 'primeng/datepicker';
+
 
 interface Pacientes {
   id: number;
@@ -51,16 +52,16 @@ interface Medication {
   imports: [
     CommonModule, 
     FormsModule,
-    TabViewModule,
     TableModule, 
     ButtonModule, 
     DialogModule, 
     InputTextModule,
     TextareaModule,
-    CalendarModule,
+    DatePickerModule,
     CardModule,
     TagModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    TabsModule,
   ],
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.scss']

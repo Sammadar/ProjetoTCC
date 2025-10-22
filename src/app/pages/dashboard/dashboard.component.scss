@@ -167,10 +167,46 @@
 
 // Ações Rápidas
 .quick-actions {
+  margin-top: 1rem;
+
   .actions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
+  }
+
+  .quick-button {
+    flex: 1 1 200px;
+    color: #fff;
+    font-weight: bold;
+    border: none !important;
+    padding: 2rem 1.5rem !important;
+    border-radius: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-transform: none !important;
+
+    &.agendamentos {
+      background-color: #42a5f5;
+    }
+
+    &.pacientes {
+      background-color: #e98177;
+    }
+
+    &.relatorios {
+      background-color: #69c357;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0.95;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
   }
 }
 

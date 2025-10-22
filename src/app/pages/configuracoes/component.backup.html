@@ -1,0 +1,267 @@
+
+<p-tabs>
+    <!-- ABA: CLÍNICA -->
+    <p-tablist header="Clínica">
+      <div class="tab-content">
+        <p-card header="Informações da Clínica">
+          <div class="form-grid">
+            <div class="field">
+              <label for="nomeClinica">Nome da Clínica *</label>
+              <input pInputText id="nomeClinica" [(ngModel)]="clinica.nome" />
+            </div>
+
+            <div class="field">
+              <label for="cnpj">CNPJ *</label>
+              <input pInputText id="cnpj" [(ngModel)]="clinica.cnpj" mask="99.999.999/9999-99" />
+            </div>
+
+            <div class="field">
+              <label for="telefone">Telefone *</label>
+              <input pInputText id="telefone" [(ngModel)]="clinica.telefone" mask="(99) 99999-9999" />
+            </div>
+
+            <div class="field">
+              <label for="email">E-mail *</label>
+              <input pInputText id="email" [(ngModel)]="clinica.email" type="email" />
+            </div>
+
+            <div class="field col-2">
+              <label for="endereco">Endereço *</label>
+              <input pInputText id="endereco" [(ngModel)]="clinica.endereco" />
+            </div>
+
+            <div class="field">
+              <label for="cidade">Cidade *</label>
+              <input pInputText id="cidade" [(ngModel)]="clinica.cidade" />
+            </div>
+
+            <div class="field">
+              <label for="estado">Estado *</label>
+              <input pInputText id="estado" [(ngModel)]="clinica.estado" maxlength="2" />
+            </div>
+
+            <div class="field">
+              <label for="cep">CEP *</label>
+              <input pInputText id="cep" [(ngModel)]="clinica.cep" mask="99999-999" />
+            </div>
+          </div>
+        </p-card>
+      </div>
+    </p-tablist>
+
+    <!-- ABA: NOTIFICAÇÕES -->
+    <p-tablist header="Notificações">
+      <div class="tab-content">
+        <div class="cards-grid">
+          <p-card header="Preferências de Notificação">
+            <div class="toggle-grid">
+              <div class="toggle-item">
+                <p-checkbox [(ngModel)]="notificacoes.emailConsultas" 
+                           label="E-mail para novas consultas"
+                           [binary]="true">
+                </p-checkbox>
+              </div>
+
+              <div class="toggle-item">
+                <p-checkbox [(ngModel)]="notificacoes.emailExames" 
+                           label="E-mail para resultados de exames"
+                           [binary]="true">
+                </p-checkbox>
+              </div>
+
+              <div class="toggle-item">
+                <p-checkbox [(ngModel)]="notificacoes.smsLembretes" 
+                           label="SMS para lembretes"
+                           [binary]="true">
+                </p-checkbox>
+              </div>
+
+              <div class="toggle-item">
+                <p-checkbox [(ngModel)]="notificacoes.pushNotifications" 
+                           label="Notificações push"
+                           [binary]="true">
+                </p-checkbox>
+              </div>
+            </div>
+          </p-card>
+
+          <p-card header="Lembretes de Consultas">
+            <div class="field">
+              <label>Lembrar com antecedência</label>
+              <p-select [options]="antecedencias" 
+                       [(ngModel)]="notificacoes.lembreteAntecedencia"
+                       optionLabel="label" 
+                       optionValue="value">
+              </p-select>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </p-tablist>
+
+    <!-- ABA: SEGURANÇA -->
+    <p-tablist header="Segurança">
+      <div class="tab-content">
+        <div class="cards-grid">
+          <p-card header="Autenticação e Acesso">
+            <div class="toggle-grid">
+              <div class="toggle-item">
+                <p-checkbox [(ngModel)]="seguranca.autenticacaoDoisFatores" 
+                           label="Autenticação de dois fatores (2FA)"
+                           [binary]="true">
+                </p-checkbox>
+              </div>
+
+              <div class="toggle-item">
+                <p-checkbox [(ngModel)]="seguranca.complexidadeSenha" 
+                           label="Exigir senha complexa"
+                           [binary]="true">
+                </p-checkbox>
+              </div>
+
+              <div class="toggle-item">
+                <p-checkbox [(ngModel)]="seguranca.backupAutomatico" 
+                           label="Backup automático"
+                           [binary]="true">
+                </p-checkbox>
+              </div>
+            </div>
+          </p-card>
+
+          <p-card header="Configurações de Sessão">
+            <div class="field">
+              <label>Tempo de sessão</label>
+              <p-select [options]="temposSessao" 
+                       [(ngModel)]="seguranca.tempoSessao"
+                       optionLabel="label" 
+                       optionValue="value">
+              </p-select>
+              <small>Tempo de inatividade antes do logout automático</small>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </p-tablist>
+
+    <!-- ABA: SISTEMA -->
+    <p-tablist header="Sistema">
+      <div class="tab-content">
+        <div class="cards-grid">
+          <p-card header="Aparência">
+            <div class="form-grid">
+              <div class="field">
+                <label>Tema</label>
+                <p-select [options]="temas" 
+                         [(ngModel)]="sistema.tema"
+                         optionLabel="label" 
+                         optionValue="value">
+                </p-select>
+              </div>
+
+              <div class="field">
+                <label>Idioma</label>
+                <p-select [options]="idiomas" 
+                         [(ngModel)]="sistema.idioma"
+                         optionLabel="label" 
+                         optionValue="value">
+                </p-select>
+              </div>
+            </div>
+          </p-card>
+
+          <p-card header="Formatação">
+            <div class="form-grid">
+              <div class="field">
+                <label>Formato de Data</label>
+                <p-select [options]="formatosData" 
+                         [(ngModel)]="sistema.formatoData"
+                         optionLabel="label" 
+                         optionValue="value">
+                </p-select>
+              </div>
+
+              <div class="field">
+                <label>Formato de Hora</label>
+                <p-select [options]="formatosHora" 
+                         [(ngModel)]="sistema.formatoHora"
+                         optionLabel="label" 
+                         optionValue="value">
+                </p-select>
+              </div>
+
+              <div class="field">
+                <label>Fuso Horário</label>
+                <p-select [options]="timezones" 
+                         [(ngModel)]="sistema.timezone"
+                         optionLabel="label" 
+                         optionValue="value">
+                </p-select>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </p-tablist>
+
+    <!-- ABA: BACKUP -->
+    <p-tablist header="Backup">
+      <div class="tab-content">
+        <div class="cards-grid">
+          <p-card header="Configurações de Backup">
+            <div class="form-grid">
+              <div class="field">
+                <label>Frequência do Backup</label>
+                <p-select [options]="frequenciasBackup" 
+                         [(ngModel)]="backup.frequencia"
+                         optionLabel="label" 
+                         optionValue="value">
+                </p-select>
+              </div>
+
+              <div class="field">
+                <label>Local de Armazenamento</label>
+                <p-select [options]="locaisArmazenamento" 
+                         [(ngModel)]="backup.localArmazenamento"
+                         optionLabel="label" 
+                         optionValue="value">
+                </p-select>
+              </div>
+            </div>
+
+            <div class="backup-info">
+              <p><strong>Último Backup:</strong> {{ backup.ultimoBackup | date:'dd/MM/yyyy HH:mm' }}</p>
+              <p><strong>Próximo Backup:</strong> {{ backup.proximoBackup | date:'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+
+            <div class="backup-actions">
+              <button pButton 
+                      icon="pi pi-download" 
+                      label="Executar Backup Agora" 
+                      class="p-button-success"
+                      (click)="executarBackup()">
+              </button>
+            </div>
+          </p-card>
+
+          <p-card header="Manutenção do Sistema">
+            <div class="maintenance-actions">
+              <button pButton 
+                      icon="pi pi-database" 
+                      label="Exportar Dados" 
+                      class="p-button-outlined"
+                      (click)="exportarDados()">
+              </button>
+              
+              <button pButton 
+                      icon="pi pi-trash" 
+                      label="Limpar Cache" 
+                      class="p-button-outlined p-button-warning"
+                      (click)="limparCache()">
+              </button>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </p-tablist>
+  </p-tabs>
+</div>

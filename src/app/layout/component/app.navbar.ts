@@ -1,0 +1,103 @@
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-navbar',
+  imports: [RouterLink],
+  template: `
+  <nav class="subnav" role="navigation" aria-label="Menu principal">
+    <a routerLink="/dashboard" routerLinkActive="active" class="subnav-item">Dashboard</a>
+    <a routerLink="/pacientes" routerLinkActive="active" class="subnav-item">Pacientes</a>
+    <a routerLink="/agendamentos" routerLinkActive="active" class="subnav-item">Agendamentos</a>
+    <a routerLink="/configuracoes" routerLinkActive="active" class="subnav-item">Configurações</a>
+  </nav>
+  `,
+  styles: `
+      /* src/app/layout/header/header.component.scss */
+    :host { display:block; z-index:1000; }
+
+    .app-header {
+      width: 100%;
+      background: var(--surface-card);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+
+    .topbar {
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      padding: .6rem 1rem;
+      gap: .75rem;
+    }
+
+    .brand .title {
+      font-weight: 700;
+      font-size: 3.120rem;
+      color: var(--text-color);
+      font-family: 'Days One', sans-serif;
+    }
+
+    .days-one-regular {
+      font-family: 'Days One', sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .header-actions {
+      display:flex;
+      align-items:center;
+      gap: 0.5rem;
+    }
+
+    .action { min-width: 40px; height: 40px; border-radius: 8px; }
+    .action i { font-size: 1.05rem; }
+
+    .user {
+      display:flex;
+      align-items:center;
+      gap: .5rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+    .user:hover { background: rgba(0,0,0,0.03); }
+
+    .avatar { width:36px; height:36px; }
+    .username { font-weight:500; color: var(--text-color); }
+
+    .subnav {
+      display: flex;
+      gap: 2rem;
+      padding: .4rem .75rem;
+      overflow-x:auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .subnav-item {
+      padding: .5rem .9rem;
+      border-radius: 10px;
+      text-decoration:none;
+      color: var(--text-color);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .subnav-item.active {
+      background: var(--primary-500);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* responsive tweaks */
+    @media (max-width:720px) {
+      .username { display:none; }
+      .subnav { gap: .4rem; }
+    }
+`
+})
+export class AppNavbar {
+
+}

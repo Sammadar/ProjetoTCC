@@ -9,9 +9,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { FormsModule } from '@angular/forms';
 import { DividerModule } from 'primeng/divider';
-import { TabViewModule } from 'primeng/tabview';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { TabList, Tabs, Tab, TabPanel } from "primeng/tabs";
 
 interface Clinica {
   nome: string;
@@ -53,14 +53,20 @@ interface Seguranca {
     CheckboxModule,
     ToggleButtonModule,
     DividerModule,
-    TabViewModule,
-    ToastModule
-  ],
+    ToastModule,
+    TabList,
+    Tabs,
+    Tab,
+    TabPanel
+],
   templateUrl: './configuracoes.component.html',
   styleUrls: ['./configuracoes.component.scss'],
   providers: [MessageService]
 })
 export class ConfiguracoesComponent {
+showDialog(arg0: string) {
+throw new Error('Method not implemented.');
+}
   // Dados da Clínica
   clinica: Clinica = {
     nome: 'CuraSystem Clínica',

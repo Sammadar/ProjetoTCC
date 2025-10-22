@@ -1,190 +1,204 @@
 <div class="patients-page" [class.emergency-mode]="emergencyMode">
-  <!-- Header com Modo Emergência -->
-  <div class="page-header">
-    <div class="header-left">
-      <h1>Prontuário do Paciente</h1>
-      <p-card class="patient-info-card">
-        <div class="patient-info">
-          <h3>{{ selectedPatient.name }}</h3>
-          <p>Idade: {{ selectedPatient.age }} anos | Sexo: {{ selectedPatient.gender }}</p>
-          <p>Tipo Sanguíneo: {{ selectedPatient.bloodType }}</p>
-          <p>Contato Emergencia: {{ selectedPatient.emergencyContact }}</p>
-          <div class="allergies">
-            <strong>Alergias:</strong>
-            <span *ngFor="let allergy of selectedPatient.allergies" class="allergy-tag">
-              {{ allergy }}
-            </span>
+    <!-- Header com Modo Emergência -->
+    <div class="page-header">
+      <div class="header-left">
+        <h1>Prontuário do Paciente</h1>
+        <p-card class="patient-info-card">
+          <div class="patient-info">
+            <h3>{{ selectedPatient.name }}</h3>
+            <p>Idade: {{ selectedPatient.age }} anos | Sexo: {{ selectedPatient.gender }}</p>
+            <p>Tipo Sanguíneo: {{ selectedPatient.bloodType }}</p>
+            <p>Contato Emergencia: {{ selectedPatient.emergencyContact }}</p>
+            <div class="allergies">
+              <strong>Alergias:</strong>
+              <span *ngFor="let allergy of selectedPatient.allergies" class="allergy-tag">
+                {{ allergy }}
+              </span>
+            </div>
+          </div>
+        </p-card>
+      </div>
+      
+      <div class="header-right">
+        <p-toggleButton 
+          [onLabel]="emergencyMode ? 'EMERGÊNCIA' : 'Modo Normal'" 
+          [offLabel]="emergencyMode ? 'EMERGÊNCIA' : 'Modo Normal'"
+          [onIcon]="emergencyMode ? 'pi pi-exclamation-triangle' : 'pi pi-shield'"
+          [offIcon]="emergencyMode ? 'pi pi-exclamation-triangle' : 'pi pi-shield'"
+          [styleClass]="emergencyMode ? 'emergency-toggle emergency-active' : 'emergency-toggle'"
+          [(ngModel)]="emergencyMode"
+          (onChange)="toggleEmergencyMode()">
+        </p-toggleButton>
+      </div>
+    </div>
+    </div>
+  
+    <p-tabs value="0">
+      <p-tablist>
+          <p-tab value="0">Histórico Familiar</p-tab>
+          <p-tab value="1">Antecedentes Clínicos</p-tab>
+          <p-tab value="2">Exames</p-tab>
+          <p-tab value="3">Prontuário</p-tab>
+          <p-tab value="4">Medicamentos</p-tab>
+      </p-tablist>
+      <p-tabpanels>
+          
+  
+  
+    <!-- Abas Principais -->
+    
+      <!-- Histórico Familiar -->
+      <p-tabpanel value="0">
+        <div class="tab-header">
+          <h3>Histórico Familiar</h3>
+          <button pButton icon="pi pi-plus" label="Adicionar" (click)="showDialog('family')"></button>
+        </div>
+        
+        <p-table [value]="familyHistory" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Parentesco</th>
+              <th>Condição</th>
+              <th>Idade</th>
+              <th>Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-history>
+            <tr>
+              <td>{{ history.relation }}</td>
+              <td>{{ history.condition }}</td>
+              <td>{{ history.age }} anos</td>
+              <td>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabpanel>
+  
+      <!-- Antecedentes Clínicos -->
+      <p-tabpanel value="1">
+        <div class="tab-header">
+          <h3>Antecedentes Clínicos</h3>
+          <button pButton icon="pi pi-plus" label="Adicionar" (click)="showDialog('clinical')"></button>
+        </div>
+        
+        <p-table [value]="clinicalHistory" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Condição</th>
+      <th>Data do Diagnóstico</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-history>
+            <tr>
+              <td>{{ history.condition }}</td>
+              <td>{{ history.diagnosisDate | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <p-tag [value]="history.status" [severity]="getSeverity(history.status)"></p-tag>
+              </td>
+              <td>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabpanel>
+  
+      <!-- Exames -->
+      <p-tabpanel value="2">
+        <div class="tab-header">
+          <h3>Exames Realizados</h3>
+          <button pButton icon="pi pi-plus" label="Novo Exame" (click)="showDialog('exam')"></button>
+        </div>
+        
+        <p-table [value]="exams" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Exame</th>
+              <th>Data</th>
+              <th>Resultado</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-exam>
+            <tr>
+              <td>{{ exam.name }}</td>
+              <td>{{ exam.date | date:'dd/MM/yyyy' }}</td>
+              <td>{{ exam.result }}</td>
+              <td>
+                <p-tag [value]="exam.status" [severity]="getSeverity(exam.status)"></p-tag>
+              </td>
+              <td>
+                <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text"></button>
+                <button pButton icon="pi pi-download" class="p-button-rounded p-button-text"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabpanel>
+  
+      <!-- Prontuário -->
+      <p-tabpanel value="3">
+        <div class="tab-header">
+          <h3>Prontuário Médico</h3>
+          <button pButton icon="pi pi-plus" label="Nova Anotação" (click)="showDialog('record')"></button>
+        </div>
+        
+        <div class="medical-records">
+          <div *ngFor="let record of medicalRecords" class="record-card">
+            <p-card>
+              <div class="record-header">
+                <strong>{{ record.doctor }}</strong>
+                <span class="record-date">{{ record.date | date:'dd/MM/yyyy' }}</span>
+              </div>
+              <div class="record-content">
+                <p><strong>Diagnóstico:</strong> {{ record.diagnosis }}</p>
+                <p><strong>Tratamento:</strong> {{ record.treatment }}</p>
+              </div>
+            </p-card>
           </div>
         </div>
-      </p-card>
-    </div>
-    
-    <div class="header-right">
-      <p-toggleButton 
-        [onLabel]="emergencyMode ? 'EMERGÊNCIA' : 'Modo Normal'" 
-        [offLabel]="emergencyMode ? 'EMERGÊNCIA' : 'Modo Normal'"
-        [onIcon]="emergencyMode ? 'pi pi-exclamation-triangle' : 'pi pi-shield'"
-        [offIcon]="emergencyMode ? 'pi pi-exclamation-triangle' : 'pi pi-shield'"
-        [styleClass]="emergencyMode ? 'emergency-toggle emergency-active' : 'emergency-toggle'"
-        [(ngModel)]="emergencyMode"
-        (onChange)="toggleEmergencyMode()">
-      </p-toggleButton>
-    </div>
-  </div>
-
-  <!-- Abas Principais -->
-  <p-tabView>
-    <!-- Histórico Familiar -->
-    <p-tabPanel header="Histórico Familiar">
-      <div class="tab-header">
-        <h3>Histórico Familiar</h3>
-        <button pButton icon="pi pi-plus" label="Adicionar" (click)="showDialog('family')"></button>
-      </div>
-      
-      <p-table [value]="familyHistory" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Parentesco</th>
-            <th>Condição</th>
-            <th>Idade</th>
-            <th>Ações</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-history>
-          <tr>
-            <td>{{ history.relation }}</td>
-            <td>{{ history.condition }}</td>
-            <td>{{ history.age }} anos</td>
-            <td>
-              <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
-              <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"></button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-tabPanel>
-
-    <!-- Antecedentes Clínicos -->
-    <p-tabPanel header="Antecedentes Clínicos">
-      <div class="tab-header">
-        <h3>Antecedentes Clínicos</h3>
-        <button pButton icon="pi pi-plus" label="Adicionar" (click)="showDialog('clinical')"></button>
-      </div>
-      
-      <p-table [value]="clinicalHistory" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Condição</th>
-    <th>Data do Diagnóstico</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-history>
-          <tr>
-            <td>{{ history.condition }}</td>
-            <td>{{ history.diagnosisDate | date:'dd/MM/yyyy' }}</td>
-            <td>
-              <p-tag [value]="history.status" [severity]="getSeverity(history.status)"></p-tag>
-            </td>
-            <td>
-              <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
-              <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"></button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-tabPanel>
-
-    <!-- Exames -->
-    <p-tabPanel header="Exames">
-      <div class="tab-header">
-        <h3>Exames Realizados</h3>
-        <button pButton icon="pi pi-plus" label="Novo Exame" (click)="showDialog('exam')"></button>
-      </div>
-      
-      <p-table [value]="exams" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Exame</th>
-            <th>Data</th>
-            <th>Resultado</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-exam>
-          <tr>
-            <td>{{ exam.name }}</td>
-            <td>{{ exam.date | date:'dd/MM/yyyy' }}</td>
-            <td>{{ exam.result }}</td>
-            <td>
-              <p-tag [value]="exam.status" [severity]="getSeverity(exam.status)"></p-tag>
-            </td>
-            <td>
-              <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text"></button>
-              <button pButton icon="pi pi-download" class="p-button-rounded p-button-text"></button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-tabPanel>
-
-    <!-- Prontuário -->
-    <p-tabPanel header="Prontuário">
-      <div class="tab-header">
-        <h3>Prontuário Médico</h3>
-        <button pButton icon="pi pi-plus" label="Nova Anotação" (click)="showDialog('record')"></button>
-      </div>
-      
-      <div class="medical-records">
-        <div *ngFor="let record of medicalRecords" class="record-card">
-          <p-card>
-            <div class="record-header">
-              <strong>{{ record.doctor }}</strong>
-              <span class="record-date">{{ record.date | date:'dd/MM/yyyy' }}</span>
-            </div>
-            <div class="record-content">
-              <p><strong>Diagnóstico:</strong> {{ record.diagnosis }}</p>
-              <p><strong>Tratamento:</strong> {{ record.treatment }}</p>
-            </div>
-          </p-card>
+      </p-tabpanel>
+  
+      <!-- Medicamentos -->
+      <p-tabpanel value="4">
+        <div class="tab-header">
+          <h3>Medicação Atual</h3>
+          <button pButton icon="pi pi-plus" label="Novo Medicamento" (click)="showDialog('medication')"></button>
         </div>
-      </div>
-    </p-tabPanel>
-
-    <!-- Medicamentos -->
-    <p-tabPanel header="Medicamentos">
-      <div class="tab-header">
-        <h3>Medicação Atual</h3>
-        <button pButton icon="pi pi-plus" label="Novo Medicamento" (click)="showDialog('medication')"></button>
-      </div>
-      
-      <p-table [value]="medications" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Medicamento</th>
-            <th>Dosagem</th>
-            <th>Frequência</th>
-            <th>Início</th>
-            <th>Término</th>
-            <th>Ações</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-med>
-          <tr>
-            <td>{{ med.name }}</td>
-            <td>{{ med.dosage }}</td>
-            <td>{{ med.frequency }}</td>
-            <td>{{ med.startDate | date:'dd/MM/yyyy' }}</td>
-            <td>{{ med.endDate | date:'dd/MM/yyyy' }}</td>
-            <td>
-              <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
-              <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"></button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-tabPanel>
-  </p-tabView>
-</div>
+        
+        <p-table [value]="medications" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Medicamento</th>
+              <th>Dosagem</th>
+              <th>Frequência</th>
+              <th>Início</th>
+              <th>Término</th>
+              <th>Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-med>
+            <tr>
+              <td>{{ med.name }}</td>
+              <td>{{ med.dosage }}</td>
+              <td>{{ med.frequency }}</td>
+              <td>{{ med.startDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ med.endDate | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabpanel>
+    </p-tabpanels>
+    </p-tabs>
+  

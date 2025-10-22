@@ -1,4 +1,4 @@
-.appointments-page {
+.agendamentos-page {
   padding: 1rem;
 }
 
@@ -37,8 +37,8 @@
   }
 }
 
-.appointments-list {
-  .appointment-item {
+.agendamentos-list {
+  .agendamento-item {
     display: flex;
     align-items: center;
     padding: 1rem;
@@ -48,13 +48,13 @@
       border-bottom: none;
     }
     
-    .appointment-time {
+    .agendamento-time {
       font-weight: bold;
       min-width: 60px;
       color: var(--primary-color);
     }
     
-    .appointment-details {
+    .agendamento-details {
       flex: 1;
       margin: 0 1rem;
       
@@ -63,25 +63,25 @@
         margin-bottom: 0.25rem;
       }
       
-      .appointment-type {
+      .agendamento-type {
         font-size: 0.9rem;
         color: var(--text-color-secondary);
       }
       
-      .appointment-doctor {
+      .agendamento-doctor {
         font-size: 0.8rem;
         color: var(--text-color-secondary);
       }
     }
     
-    .appointment-actions {
+    .agendamento-actions {
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
   }
   
-  .no-appointments {
+  .no-agendamentos {
     padding: 2rem;
     text-align: center;
     color: var(--text-color-secondary);
@@ -130,12 +130,12 @@
   color: var(--text-color-secondary) !important;
 }
 
-.next-appointment {
+.next-agendamento {
   color: var(--green-600);
   font-weight: 600;
 }
 
-.no-appointment {
+.no-agendamento {
   color: var(--red-600);
   font-style: italic;
 }
@@ -154,7 +154,7 @@
     flex-direction: column;
   }
   
-  .appointment-item {
+  .agendamento-item {
     flex-direction: column;
     align-items: flex-start !important;
     gap: 0.5rem;

@@ -6,7 +6,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePicker } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -55,7 +55,7 @@ interface Metricas {
     ButtonModule,
     TagModule,
     ProgressBarModule,
-    CalendarModule,
+    DatePicker,
     RouterModule
   ],
   templateUrl: './dashboard.component.html',
