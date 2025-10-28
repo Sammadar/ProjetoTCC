@@ -1,0 +1,27 @@
+[project]
+name = "projeto-tcc-api"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Sammadar dos Santos",email = "sammadar@outlook.com.br"}
+]
+readme = "README.md"
+requires-python = ">=3.12.6"
+dependencies = [
+    "pydantic (>=2.11.7,<3.0.0)",
+    "sqlalchemy (>=2.0.43,<3.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "sqlalchemy-utils (>=0.41.2,<0.42.0)",
+    "pymysql (>=1.1.2,<2.0.0)",
+    "cryptography (>=45.0.6,<46.0.0)",
+    "uvicorn (>=0.35.0,<0.36.0)",
+    "fastapi[standard] (>=0.120.1,<0.121.0)"
+]
+
+[tool.poetry]
+packages = [{include = "projeto_tcc_api", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
