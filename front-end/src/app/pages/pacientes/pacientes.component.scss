@@ -2,7 +2,7 @@
   padding: 1rem;
   
   &.emergency-mode {
-    background-color: #fff0f0;
+    background-color: #dddee1;
     
     .page-header {
       background: linear-gradient(135deg, #ff4444, #cc0000);
@@ -17,7 +17,7 @@
   align-items: flex-start;
   margin-bottom: 2rem;
   padding: 1rem;
-  background: #f8f9fa;
+  background: #82cde8;
   border-radius: 8px;
   
   .header-left {
@@ -44,7 +44,7 @@
         .allergy-tag {
           display: inline-block;
           background: #ffebee;
-          color: #c62828;
+          color: #d33333;
           padding: 0.25rem 0.5rem;
           border-radius: 12px;
           font-size: 0.8rem;

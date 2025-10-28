@@ -13,7 +13,7 @@ import { LayoutService } from '../service/layout.service';
     template: ` <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
             <a class="layout-topbar-logo" routerLink="/">
-                <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         fill-rule="evenodd"
                         clip-rule="evenodd"
@@ -29,7 +29,7 @@ import { LayoutService } from '../service/layout.service';
                             fill="var(--primary-color)"
                         />
                     </g>
-                </svg>
+                </svg> -->
                 <span>CuraSystem</span>
             </a>
         </div>
@@ -63,15 +63,15 @@ import { LayoutService } from '../service/layout.service';
                 <div class="layout-topbar-menu-content">
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
-                        <span>Calendar</span>
+                        <span>Calendário</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-inbox"></i>
-                        <span>Messages</span>
+                        <span>Mensagens</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-user"></i>
-                        <span>Profile</span>
+                        <span>Perfil</span>
                     </button>
                 </div>
             </div>
