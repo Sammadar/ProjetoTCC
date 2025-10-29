@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog, DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { CardModule } from 'primeng/card';
@@ -11,6 +11,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { FormsModule } from '@angular/forms';
 import { TabsModule } from 'primeng/tabs';
 import { DatePickerModule } from 'primeng/datepicker';
+import { BrowserModule } from '@angular/platform-browser';
+import { NovoPaciente } from '@/models/paciente';
+import { PacientesService } from '../service/pacientes.service';
 
 
 interface Pacientes {
@@ -46,15 +49,17 @@ interface Medication {
   endDate: Date;
 }
 
+
+
 @Component({
   selector: 'app-patients',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     FormsModule,
-    TableModule, 
-    ButtonModule, 
-    DialogModule, 
+    TableModule,
+    ButtonModule,
+    DialogModule,
     InputTextModule,
     TextareaModule,
     DatePickerModule,
@@ -62,11 +67,25 @@ interface Medication {
     TagModule,
     ToggleButtonModule,
     TabsModule,
+
+
   ],
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.scss']
 })
 export class PacientesComponent {
+  novoPaciente: any;
+  tipoSanguineo: any;
+  nomeNumeroEmergencia: any;
+
+  constructor(private pacientesService: PacientesService){}
+
+  paciente: NovoPaciente = {
+    nome: "",
+    tipoSanguineo: "",
+    contatoEmergencia: "",
+    contatoEmergenciaNumero: "",
+  }
   // Dados do paciente selecionado
   selectedPatient: Pacientes = {
     id: 1,
@@ -123,6 +142,10 @@ export class PacientesComponent {
   newExam: any = {};
   newMedication: any = {};
   newMedicalRecord: any = {};
+  patients: any;
+  pacientes: any;
+  NovoPaciente: any;
+  appointmentTypes: any;
 
   toggleEmergencyMode() {
     this.emergencyMode = !this.emergencyMode;
@@ -135,6 +158,21 @@ export class PacientesComponent {
   showDialog(dialogType: string) {
     this.visible = true;
     // Lógica para diferentes tipos de diálogo pode ser adicionada aqui
+    // }
+    // editPaciente(p: NovoPaciente) {
+    //   // lógica de edição…
+    // }
+
+    // deletePaciente(p: NovoPaciente) {
+    //   // lógica de exclusão…
+    // }
+
+    // onCancel() {
+    //   // lógica de cancelar…
+    // }
+
+    // onSave() {
+    //   // lógica de salvar…
   }
 
   getSeverity(status: string) {
@@ -148,5 +186,12 @@ export class PacientesComponent {
       default:
         return 'info';
     }
+  }
+
+  cadastrar() {
+ this.pacientesService.cadastrar(this.paciente).subscribe({
+      next: aluno => alert("deu boa!"),
+      error: erro => console.log("Ocorreu um erro ao cadastrar o aluno:" + erro),
+    })
   }
 }

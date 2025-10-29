@@ -15,9 +15,9 @@ def listar_todos_pacientes(db: Session = Depends(get_db)):
     pacientes = [Paciente(
         id=paciente.id,
         nome=paciente.nome,
-        sobrenome=paciente.sobrenome,
-        cpf=paciente.cpf,
-        data_nascimento=paciente.data_nascimento,
+        tipo_sanguineo=paciente.tipo_sanguineo,
+        contato_emergencia_numero=paciente.contato_emergencia_numero,
+        contato_emergencia=paciente.contato_emergencia
     ) for paciente in pacientes]
     return pacientes
 
