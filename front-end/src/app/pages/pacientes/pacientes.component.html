@@ -38,7 +38,6 @@
     <p-tab value="2">Exames</p-tab>
     <p-tab value="3">Prontuário</p-tab>
     <p-tab value="4">Medicamentos</p-tab>
-    <p-tab value="5">Cadastro de Paciente</p-tab>
   </p-tablist>
 
   <p-tabpanels>
@@ -196,43 +195,6 @@
           </tr>
         </ng-template>
       </p-table>
-    </p-tabpanel>
-
-
-    <!-- Novo Pacientes -->
-
-    <p-tabpanel value="5">
-      <div class="tab-content">
-        <p-card header="Cadastro de Paciente">
-          <div class="form-grid">
-            <div class="field">
-              <label for="nomeCompleto">Nome do Paciente *</label>
-              <input pInputText id="nomeCompleto" [(ngModel)]="paciente.nome" />
-            </div>
-
-            <div class="field">
-              <label for="estado">Tipo Sanguineo*</label>
-              <input pInputText id="tipoSanguineo" [(ngModel)]="paciente.tipoSanguineo" maxlength="2" />
-            </div>
-
-
-            <div class="field">
-              <label for="telefone">Contato de emergencia *</label>
-              <input pInputText id="contatoEmergencia" [(ngModel)]="paciente.contatoEmergenciaNumero"
-                mask="(99) 99999-9999" />
-            </div>
-
-            <div class="field">
-              <label for="email">Nome do contato de emergencia *</label>
-              <input pInputText id="nomeContatoEmergencia" [(ngModel)]="paciente.contatoEmergencia" />
-            </div>
-            <div class="">
-
-              <button pButton icon="pi pi-plus" label="NovoPaciente" (click)="cadastrar()"></button>
-            </div>
-          </div>
-        </p-card>
-      </div>
     </p-tabpanel>
   </p-tabpanels>
 </p-tabs>

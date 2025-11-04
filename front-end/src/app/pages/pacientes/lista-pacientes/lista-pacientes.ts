@@ -1,34 +1,60 @@
-import { NodeService } from '@/pages/service/node.service';
-import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { TreeTableModule } from 'primeng/treetable';
-
-
-interface Lista {
-    field: string;
-    header: string;
-}
+import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-lista-pacientes',
-  imports: [TreeTableModule, ButtonModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TableModule,
+    ButtonModule,
+    TooltipModule,
+    InputTextModule,
+    CardModule,
+    FormsModule,
+    RouterLink
+],
   templateUrl: './lista-pacientes.html',
   styleUrl: './lista-pacientes.scss'
 })
-export class ListaPacientes implements OnInit {
-    files!: TreeNode[];
+export class ListaPacientes {
+  filtro: string = '';
 
-    cols!: Lista[];
+  pacientes = [
+    { nome: 'João Silva', cpf: '123.456.789-00', idade: 45, sexo: 'Masculino', tipoSanguineo: 'O+' },
+    { nome: 'Maria Souza', cpf: '987.654.321-00', idade: 33, sexo: 'Feminino', tipoSanguineo: 'A-' },
+    { nome: 'Carlos Pereira', cpf: '111.222.333-44', idade: 60, sexo: 'Masculino', tipoSanguineo: 'B+' }
+  ];
 
-    constructor(private nodeService: NodeService) {}
+  pacientesFiltrados = [...this.pacientes];
+    router: any;
 
-    ngOnInit() {
-        this.nodeService.getFilesystem().then((files) => (this.files = files));
-        this.cols = [
-            { field: 'Nome', header: 'Nome' },
-            { field: 'CPF', header: 'CPF' },
-            { field: '', header: '' }
-        ];
-    }
+  filtrarPacientes() {
+    const filtroLower = this.filtro.toLowerCase();
+    this.pacientesFiltrados = this.pacientes.filter(
+      (p) =>
+        p.nome.toLowerCase().includes(filtroLower) ||
+        p.cpf.toLowerCase().includes(filtroLower)
+    );
+  }
+
+  novoPaciente() {
+    console.log('Novo paciente');
+    this.router.navigate(['cadastro-paciente']);
+  }
+
+  abrirProntuario(paciente: any) {
+    console.log('Abrir prontuário:', paciente);
+  }
+
+  excluirPaciente(paciente: any) {
+    console.log('Excluir paciente:', paciente);
+  }
 }

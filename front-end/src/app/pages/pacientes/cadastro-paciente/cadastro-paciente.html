@@ -1,0 +1,50 @@
+<p-toast position="top-right"></p-toast>
+
+<p-card header="Cadastro de Paciente" class="p-4">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="field">
+      <label>Nome</label>
+      <input pInputText formControlName="nome" maxlength="100" placeholder="Digite o nome completo"/>
+    </div>
+
+    <div class="field">
+      <label>CPF</label>
+      <input
+        pInputText
+        formControlName="cpf"
+        mask="000.000.000-00"
+        placeholder="000.000.000-00"
+        [dropSpecialCharacters]="false"
+      />
+    </div>
+
+    <div class="field">
+      <label>Telefone</label>
+      <input
+        pInputText
+        formControlName="telefone"
+        mask="(00) 00000-0000"
+        placeholder="(00) 00000-0000"
+        [dropSpecialCharacters]="false"
+      />
+    </div>
+
+    <div class="field">
+      <label>Sexo</label>
+      <p-select [options]="sexos" formControlName="sexo" placeholder="Selecione o sexo" optionLabel="label" optionValue="value"></p-select>
+    </div>
+
+    <div class="field">
+      <label>Idade</label>
+      <input pInputText formControlName="idade" placeholder="Ex: 35" maxlength="3" (input)="somenteNumeros($event)"/>
+    </div>
+
+    <div class="field">
+      <label>Endereço</label>
+      <input pInputText formControlName="endereco" placeholder="Rua, nº, bairro"/>
+    </div>
+
+    <button pButton type="submit" label="Salvar" class="mt-3"></button>
+  </form>
+</p-card>

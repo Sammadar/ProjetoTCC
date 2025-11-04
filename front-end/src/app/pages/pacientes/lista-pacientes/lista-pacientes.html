@@ -1,29 +1,72 @@
-<div class="card">
-    <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
-        <ng-template #header let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{ col.header }}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index; let last = last">
-                    <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    <ng-container *ngIf="last">
-                        <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
-                        <p-button icon="pi pi-pencil" rounded="true" severity="success" />
-                    </ng-container>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template #summary>
-            <div style="text-align:left">
-                <p-button icon="pi pi-refresh" label="Reload" severity="warn" />
-            </div>
-        </ng-template>
-    </p-treetable>
-</div>
+<p-card>
+  <div class="header">
+    <h2>Lista de Pacientes</h2>
+
+    <div class="actions">
+      <span class="p-input-icon-left">
+        <input
+          type="text"
+          pInputText
+          placeholder="Pesquisar por nome ou CPF..."
+          [(ngModel)]="filtro"
+          (input)="filtrarPacientes()"
+        />
+      </span>
+
+      <button
+        pButton
+        label="Novo Paciente"
+        icon="pi pi-plus"
+        class="p-button-success"
+        (click)="novoPaciente()"
+        routerLink="/cadastro-paciente"
+      ></button>
+    </div>
+  </div>
+
+  <p-table
+    [value]="pacientesFiltrados"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-sm"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Idade</th>
+        <th>Sexo</th>
+        <th>Tipo Sanguíneo</th>
+        <th style="width: 160px; text-align: center">Ações</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-paciente>
+      <tr>
+        <td>{{ paciente.nome }}</td>
+        <td>{{ paciente.cpf }}</td>
+        <td>{{ paciente.idade }}</td>
+        <td>{{ paciente.sexo }}</td>
+        <td>{{ paciente.tipoSanguineo }}</td>
+        <td style="text-align: center">
+          <button
+            pButton
+            icon="pi pi-eye"
+            class="p-button-rounded p-button-info p-button-sm"
+            pTooltip="Ver Prontuário"
+            tooltipPosition="top"
+            (click)="abrirProntuario(paciente)"
+          ></button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger p-button-sm ml-2"
+            pTooltip="Excluir Paciente"
+            tooltipPosition="top"
+            (click)="excluirPaciente(paciente)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

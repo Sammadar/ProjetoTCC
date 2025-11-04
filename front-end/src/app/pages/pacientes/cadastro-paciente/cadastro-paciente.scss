@@ -1,0 +1,83 @@
+/* Card principal */
+p-card {
+    max-width: 550px;
+    margin: 2rem auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    background-color: var(--surface-card);
+    padding: 2rem;
+
+    .card-header {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+    }
+}
+
+/* Campos do formulário */
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+
+    label {
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        color: var(--text-color);
+    }
+
+    input[pInputText],
+    input[pInputText][pInputMask],
+    .p-dropdown {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid var(--surface-border);
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.25);
+        }
+    }
+
+    small.p-error {
+        color: var(--red-600);
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Botão de envio */
+button[pButton] {
+    width: 100%;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff;
+    transition: background-color 0.2s, transform 0.1s;
+
+    &:hover {
+        filter: brightness(90%);
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+/* Responsividade para mobile */
+@media screen and (max-width: 600px) {
+    p-card {
+        margin: 1rem;
+        padding: 1.2rem;
+    }
+}
