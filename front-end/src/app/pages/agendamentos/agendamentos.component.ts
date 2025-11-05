@@ -98,7 +98,7 @@ export class AgendamentosComponent {
   visible: boolean = false;
   dialogType: string = '';
 
-  // Novo agendamento - CORRIGIDO para Angular 17
+  
   newAgendamento = {
     date: new Date(),
     time: '',

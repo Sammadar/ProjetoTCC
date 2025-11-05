@@ -120,6 +120,14 @@ export class DashboardComponent implements OnInit {
     { id: 4, nome: 'Ana Pereira', ultimaConsulta: '12/01/2024', proximaConsulta: '02/02/2024', status: 'Inativo' },
     { id: 5, nome: 'Carlos Lima', ultimaConsulta: '08/01/2024', proximaConsulta: '15/02/2024', status: 'Ativo' }
   ];
+  router: any;
+
+//Botao novo paciente
+
+  // novoPaciente() {
+  //   console.log('Novo paciente');
+  //   this.router.navigate(['cadastro-paciente']);
+  // }
 
   // Gráficos
   consultasChart: any;

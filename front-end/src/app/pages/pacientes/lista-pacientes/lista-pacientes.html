@@ -4,31 +4,16 @@
 
     <div class="actions">
       <span class="p-input-icon-left">
-        <input
-          type="text"
-          pInputText
-          placeholder="Pesquisar por nome ou CPF..."
-          [(ngModel)]="filtro"
-          (input)="filtrarPacientes()"
-        />
+        <input type="text" pInputText placeholder="Pesquisar por nome ou CPF..." [(ngModel)]="filtro"
+          (input)="filtrarPacientes()" />
       </span>
 
-      <button
-        pButton
-        label="Novo Paciente"
-        icon="pi pi-plus"
-        class="p-button-success"
-        (click)="novoPaciente()"
-        routerLink="/cadastro-paciente"
-      ></button>
+      <button pButton label="Novo Paciente" icon="pi pi-plus" class="p-button-success" (click)="novoPaciente()"
+        routerLink="/cadastro-paciente"></button>
     </div>
   </div>
 
-  <p-table
-    [value]="pacientesFiltrados"
-    responsiveLayout="scroll"
-    styleClass="p-datatable-sm"
-  >
+  <p-table [value]="pacientesFiltrados" responsiveLayout="scroll" styleClass="p-datatable-sm">
     <ng-template pTemplate="header">
       <tr>
         <th>Nome</th>
@@ -48,25 +33,18 @@
         <td>{{ paciente.sexo }}</td>
         <td>{{ paciente.tipoSanguineo }}</td>
         <td style="text-align: center">
-          <button
-            pButton
-            icon="pi pi-eye"
-            class="p-button-rounded p-button-info p-button-sm"
-            pTooltip="Ver Prontuário"
-            tooltipPosition="top"
-            (click)="abrirProntuario(paciente)"
-          ></button>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm" pTooltip="Ver Prontuário"
+            tooltipPosition="top" (click)="abrirProntuario(paciente)" routerlink="/pacientes">
+          </button>
 
-          <button
-            pButton
-            icon="pi pi-trash"
-            class="p-button-rounded p-button-danger p-button-sm ml-2"
-            pTooltip="Excluir Paciente"
-            tooltipPosition="top"
-            (click)="excluirPaciente(paciente)"
-          ></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm ml-2"
+            pTooltip="Excluir Paciente" tooltipPosition="top" (click)="excluirPaciente(paciente)"></button>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </p-card>
+
+<p-dialog header="Prontuário" [modal]="true" [(visible)]="visible" [style]="{ width: '100rem',height: '100rem' }" [breakpoints]="{ '1199px': '90vw', '575px': '90vw' }">
+  <app-patients></app-patients>
+</p-dialog>

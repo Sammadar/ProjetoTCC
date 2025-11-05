@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { CardModule } from 'primeng/card';
@@ -13,7 +13,7 @@ import { TabsModule } from 'primeng/tabs';
 import { DatePickerModule } from 'primeng/datepicker';
 import { BrowserModule } from '@angular/platform-browser';
 import { NovoPaciente } from '@/models/paciente';
-import { PacientesService } from '../service/pacientes.service';
+import { PacientesService } from '../../service/pacientes.service';
 
 
 interface Pacientes {

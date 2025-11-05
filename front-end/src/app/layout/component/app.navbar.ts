@@ -8,13 +8,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   template: `
     <nav class="subnav" role="navigation" aria-label="Menu principal">
       <a routerLink="/dashboard" routerLinkActive="active" class="subnav-item">Dashboard</a>
-      <a routerLink="/pacientes" routerLinkActive="active" class="subnav-item">Pacientes</a>
       <a routerLink="/agendamentos" routerLinkActive="active" class="subnav-item">Agendamentos</a>
-      <a routerLink="/relatorios" routerLinkActive="active" class="subnav-item">Relatórios</a>
-      <a routerLink="/usuarios" routerLinkActive="active" class="subnav-item">Usuários</a>
       <a routerLink="/lista-pacientes" routerLinkActive="active" class="subnav-item">Lista de Pacientes</a>
       <a routerLink="/configuracoes" routerLinkActive="active" class="subnav-item">Configurações</a>
-      <a routerLink="/cadastro-paciente" routerLinkActive="active" class="subnav-item">Cadastro de Paciente</a>
     </nav>
   `,
   styles: [`
