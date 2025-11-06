@@ -1,162 +1,177 @@
 .agendamentos-page {
-  padding: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
+/* === HEADER === */
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  
+  flex-wrap: wrap;
+  gap: 1rem;
+
   h1 {
-    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
     color: var(--text-color);
   }
 }
 
-.tab-content {
-  padding: 1rem 0;
+/* === DIALOG MODERNO === */
+:host ::ng-deep .p-dialog {
+  border-radius: 12px !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+
+  .p-dialog-header {
+    padding: 1rem 1.25rem;
+    background-color: var(--surface-ground);
+    border-bottom: 1px solid var(--surface-border);
+
+    .p-dialog-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .p-dialog-header-icon {
+      color: var(--text-color-secondary);
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+  
+
+  .p-dialog-content {
+    padding: 1.5rem;
+    background-color: var(--surface-card);
+  }
+
+  .p-dialog-footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--surface-border);
+    background-color: var(--surface-ground);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
 }
 
-/* ABA AGENDA */
-.schedule-view {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+/* === TABS === */
+.tabs-container {
+  :host ::ng-deep .p-tablist {
+    border-bottom: 2px solid var(--surface-border);
+  }
+}
+
+/* === AGENDA === */
+.agenda-section {
+  display: grid;
+  gap: 1.5rem;
 }
 
 .day-card {
-  width: 350px;
-  
-  ::ng-deep .p-card-body {
-    padding: 0;
+  :host ::ng-deep .p-card-body {
+    padding: 1rem 1.5rem;
   }
-  
-  ::ng-deep .p-card-content {
-    padding: 0;
-  }
-}
 
-.agendamentos-list {
   .agendamento-item {
     display: flex;
     align-items: center;
-    padding: 1rem;
+    justify-content: space-between;
+    padding: 0.75rem 0;
     border-bottom: 1px solid var(--surface-border);
-    
+
     &:last-child {
       border-bottom: none;
     }
-    
+
     .agendamento-time {
-      font-weight: bold;
-      min-width: 60px;
+      font-weight: 500;
+      width: 80px;
+      text-align: center;
       color: var(--primary-color);
     }
-    
+
     .agendamento-details {
       flex: 1;
-      margin: 0 1rem;
-      
-      strong {
+      padding: 0 1rem;
+
+      small {
         display: block;
-        margin-bottom: 0.25rem;
-      }
-      
-      .agendamento-type {
-        font-size: 0.9rem;
-        color: var(--text-color-secondary);
-      }
-      
-      .agendamento-doctor {
-        font-size: 0.8rem;
         color: var(--text-color-secondary);
       }
     }
-    
+
     .agendamento-actions {
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
   }
-  
+
   .no-agendamentos {
-    padding: 2rem;
     text-align: center;
+    padding: 1rem;
     color: var(--text-color-secondary);
-    font-style: italic;
   }
 }
 
-/* FILTROS */
+/* === FILTROS === */
 .filters {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
   flex-wrap: wrap;
-  
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
   .filter-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    
+    min-width: 200px;
+
     label {
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
     }
   }
 }
 
-/* DIALOG */
-.dialog-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  
-  .form-group {
+/* === TABELAS === */
+.consultas-table,
+.pacientes-section {
+  :host ::ng-deep .p-table {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .actions {
+    text-align: center;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     gap: 0.5rem;
-    
-    label {
-      font-weight: 600;
-    }
   }
 }
 
-/* ESTILOS GERAIS */
-.text-muted {
-  color: var(--text-color-secondary) !important;
-}
-
-.next-agendamento {
-  color: var(--green-600);
-  font-weight: 600;
-}
-
-.no-agendamento {
-  color: var(--red-600);
-  font-style: italic;
-}
-
-/* RESPONSIVIDADE */
+/* === RESPONSIVIDADE === */
 @media (max-width: 768px) {
-  .schedule-view {
+  .page-header {
     flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .day-card {
-    width: 100%;
-  }
-  
+
   .filters {
     flex-direction: column;
   }
-  
+
   .agendamento-item {
     flex-direction: column;
-    align-items: flex-start !important;
+    align-items: flex-start;
     gap: 0.5rem;
   }
 }

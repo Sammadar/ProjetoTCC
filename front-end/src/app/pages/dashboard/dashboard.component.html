@@ -1,107 +1,73 @@
 <div class="dashboard-page">
-  <!-- Cabeçalho -->
-  <div class="page-header">
-    <div class="header-content">
-      <h1>Dashboard</h1>
-      <div class="header-actions">
-        <p-datepicker [(ngModel)]="dataFiltro" [showIcon]="true" dateFormat="dd/mm/yy" placeholder="Filtrar por data">
-        </p-datepicker>
-        <button pButton icon="pi pi-refresh" label="Atualizar" class="p-button-outlined">
-        </button>
-      </div>
+  <!-- Boas-vindas -->
+  <section class="welcome-section">
+    <div class="welcome-text">
+      <h1>Bem-vindo(a) de volta, Dr(a). {{ 'usuarioNome' }}!</h1>
+      <p>Aqui está um resumo das suas atividades e métricas mais recentes.</p>
     </div>
-    <p>Visão geral do desempenho da clínica</p>
-  </div>
+    <i class="pi pi-chart-line welcome-icon"></i>
+  </section>
 
-  <!-- Acesso Rápido -->
-  <div class="quick-actions mb-2">
-    <p-card header="Acesso Rápido">
-      <div class="actions-grid">
-        <button pButton icon="pi pi-calendar-plus" label="Agendamentos" routerLink="/agendamentos"
-          class="quick-button agendamentos">
-        </button>
-        <button pButton icon="pi pi-user-plus" label="Pacientes" routerLink="/pacientes" class="quick-button pacientes">
-        </button>
-        <button pButton icon="pi pi-file-export" label="Relatórios" class="quick-button relatorios">
-        </button>
-      </div>
-    </p-card>
-  </div>
-
-  <!-- Métricas Principais -->
-  <div class="metrics-grid">
-    @for (metrica of metricas; track metrica.label) {
-    <p-card class="metric-card">
-      <div class="metric-content">
-        <div class="metric-icon" [ngClass]="metrica.color">
-          <i [class]="metrica.icon"></i>
+  <!-- Métricas principais -->
+  <section class="metrics-section">
+    <h2 class="section-title">Visão Geral</h2>
+    <div class="metrics-grid">
+      @for (metrica of metricas; track metrica.label) {
+      <p-card class="metric-card">
+        <div class="metric-content">
+          <div class="metric-icon" [ngClass]="metrica.color">
+            <i [class]="metrica.icon"></i>
+          </div>
+          <div class="metric-info">
+            <span class="metric-label">{{ metrica.label }}</span>
+            <span class="metric-value">
+              {{ metrica.label === 'Receita Mensal' ? formatarMoeda(metrica.value) : metrica.value }}
+              {{ metrica.label === 'Taxa de Ocupação' ? '%' : '' }}
+            </span>
+            <span class="metric-variation" [ngClass]="metrica.variation >= 0 ? 'positive' : 'negative'">
+              <i [class]="metrica.variation >= 0 ? 'pi pi-arrow-up' : 'pi pi-arrow-down'"></i>
+              {{ getValorAbsoluto(metrica.variation) }}%
+            </span>
+          </div>
         </div>
-        <div class="metric-info">
-          <span class="metric-label">{{ metrica.label }}</span>
-          <span class="metric-value">
-            {{ metrica.label === 'Receita Mensal' ? formatarMoeda(metrica.value) : metrica.value }}
-            {{ metrica.label === 'Taxa de Ocupação' ? '%' : '' }}
-          </span>
-          <span class="metric-variation" [ngClass]="metrica.variation >= 0 ? 'positive' : 'negative'">
-            <i [class]="metrica.variation >= 0 ? 'pi pi-arrow-up' : 'pi pi-arrow-down'"></i>
-            {{ getValorAbsoluto(metrica.variation) }}%
-          </span>
-        </div>
-      </div>
-    </p-card>
-    }
-  </div>
+      </p-card>
+      }
+    </div>
+  </section>
 
-  <!-- Gráficos e Estatísticas -->
-  <div class="charts-grid">
-    <!-- Gráfico de Consultas -->
-    <p-card header="Consultas Mensais" class="chart-card">
-      <p-chart type="line" [data]="consultasChart" [options]="chartOptions" height="250px"></p-chart>
-    </p-card>
+  <!-- Acesso rápido -->
+  <section class="quick-actions">
+    <h2 class="section-title">Acesso Rápido</h2>
+    <div class="actions-grid">
+      <button pButton icon="pi pi-calendar-plus" label="Agendamentos" routerLink="/agendamentos" class="quick-button agendamentos"></button>
+      <button pButton icon="pi pi-user-plus" label="Pacientes" routerLink="/lista-pacientes" class="quick-button pacientes"></button>
+    </div>
+  </section>
 
-    <!-- Distribuição de Pacientes -->
-    <p-card header="Distribuição por Especialidade" class="chart-card">
-      <p-chart type="doughnut" [data]="pacientesChart" [options]="chartOptions" height="250px"></p-chart>
-    </p-card>
+  <!-- Gráficos -->
+  <section class="charts-section">
+    <h2 class="section-title">Estatísticas e Gráficos</h2>
+    <div class="charts-grid">
+      <p-card header="Consultas Mensais" class="chart-card">
+        <p-chart type="line" [data]="consultasChart" [options]="chartOptions" height="250px"></p-chart>
+      </p-card>
+      <p-card header="Distribuição por Especialidade" class="chart-card">
+        <p-chart type="doughnut" [data]="pacientesChart" [options]="chartOptions" height="250px"></p-chart>
+      </p-card>
+      <p-card header="Ocupação Semanal" class="chart-card">
+        <p-chart type="bar" [data]="ocupacaoChart" [options]="barChartOptions" height="250px"></p-chart>
+      </p-card>
+    </div>
+  </section>
 
-    <!-- Ocupação por Dia -->
-    <p-card header="Ocupação Semanal" class="chart-card">
-      <p-chart type="bar" [data]="ocupacaoChart" [options]="barChartOptions" height="250px"></p-chart>
-    </p-card>
-
-    <!-- Estatísticas Rápidas -->
-    <p-card header="Estatísticas Rápidas" class="stats-card">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span class="stat-label">Taxa de Comparecimento</span>
-          <p-progressBar [value]="85" [showValue]="true"></p-progressBar>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Satisfação do Paciente</span>
-          <p-progressBar [value]="92" [showValue]="true"></p-progressBar>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Tempo Médio de Espera</span>
-          <div class="stat-value">15 min</div>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Consultas Emergenciais</span>
-          <div class="stat-value">12%</div>
-        </div>
-      </div>
-    </p-card>
-  </div>
-
-  <!-- Tabelas de Dados -->
-  <div class="tables-grid">
-    <!-- Consultas do Dia -->
-    <p-card header="Consultas de Hoje" class="table-card">
-      <div class="card-actions">
-        <button pButton icon="pi pi-plus" label="Nova Consulta" routerLink="/agendamentos" class="p-button-sm">
-        </button>
-      </div>
-
-      <p-table [value]="consultasRecentes" [tableStyle]="{'min-width': '50rem'}">
+  <!-- Tabelas -->
+  <section class="tables-section">
+    <h2 class="section-title">Consultas de Hoje</h2>
+    <p-card class="table-card">
+      <!-- <div class="card-actions">
+        <button pButton icon="pi pi-plus" label="Nova Consulta" routerLink="/agendamentos" class="p-button-sm"></button>
+      </div> -->
+      <p-table [value]="consultasRecentes">
         <ng-template pTemplate="header">
           <tr>
             <th>Paciente</th>
@@ -118,9 +84,7 @@
             <td>{{ consulta.horario }}</td>
             <td>{{ consulta.tipo }}</td>
             <td>{{ consulta.medico }}</td>
-            <td>
-              <p-tag [value]="consulta.status" [severity]="getSeverity(consulta.status)"></p-tag>
-            </td>
+            <td><p-tag [value]="consulta.status" [severity]="getSeverity(consulta.status)"></p-tag></td>
             <td>
               <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"></button>
               <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"></button>
@@ -129,43 +93,5 @@
         </ng-template>
       </p-table>
     </p-card>
-
-    <!-- Pacientes Recentes -->
-    <p-card header="Pacientes Recentes" class="table-card">
-      <div class="card-actions">
-        <button pButton icon="pi pi-user-plus" label="Novo Paciente" routerLink="/cadastro-paciente" class="p-button-sm">
-        </button>
-      </div>
-
-      <p-table [value]="pacientesRecentes" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Paciente</th>
-            <th>Última Consulta</th>
-            <th>Próxima Consulta</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-paciente>
-          <tr>
-            <td>
-              <strong>{{ paciente.nome }}</strong>
-              <br>
-              <small class="text-muted">ID: {{ paciente.id }}</small>
-            </td>
-            <td>{{ paciente.ultimaConsulta }}</td>
-            <td>{{ paciente.proximaConsulta }}</td>
-            <td>
-              <p-tag [value]="paciente.status" [severity]="getSeverity(paciente.status)"></p-tag>
-            </td>
-            <td>
-              <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"></button>
-              <button pButton icon="pi pi-calendar-plus" class="p-button-rounded p-button-text p-button-sm"></button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-card>
-  </div>
+  </section>
 </div>

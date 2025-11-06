@@ -13,8 +13,9 @@ import { AppNavbar } from './app.navbar';
     imports: [CommonModule, AppTopbar, RouterModule, AppFooter, AppNavbar],
     template: `<div class="layout-wrapper layout-static-inactive">
         <app-topbar></app-topbar>
+        <app-navbar></app-navbar>
         <div class="layout-main-container">
-            <app-navbar></app-navbar>
+            
             <div class="layout-main">
                 <router-outlet></router-outlet>
             </div>
