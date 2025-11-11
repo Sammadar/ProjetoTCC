@@ -134,11 +134,24 @@ span.pi {
 }
 
 .metric-card:hover i.pi,
-.quick-button:hover span.pi,
+button:hover span.p-button-icon,
 .welcome-section:hover i.pi {
   transform: translateY(0) !important; // mantém o ícone parado quando o card sobe
 }
 
+button:hover span.p-button-icon{
+  transform: translateY(0) !important; // mantém o ícone parado quando o card sobe
+
+}
+
+.quick-button.pacientes:hover .p-button-label,
+.quick-button.pacientes:hover .p-button-icon {
+  transform: translateY(0) !important;
+  color: #ff0000; /* Just as an example */
+}
+ :host ::ng-deep .quick-button .p-button-icon {
+  transform: translateY(0) !important; /* corrige o ícone do Agendamentos */
+}
 .metric-info {
   display: flex;
   flex-direction: column;
