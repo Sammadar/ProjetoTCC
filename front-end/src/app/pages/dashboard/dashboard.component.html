@@ -75,7 +75,7 @@
             <th>Tipo</th>
             <th>Médico</th>
             <th>Status</th>
-            <th>Ações</th>
+            <!-- <th>Ações</th> -->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-consulta>
@@ -86,8 +86,8 @@
             <td>{{ consulta.medico }}</td>
             <td><p-tag [value]="consulta.status" [severity]="getSeverity(consulta.status)"></p-tag></td>
             <td>
-              <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"></button>
-              <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"></button>
+              <!-- <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"></button>
+              <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"></button> -->
             </td>
           </tr>
         </ng-template>

@@ -50,7 +50,7 @@ interface Patient {
     ButtonModule,
     DialogModule,
     InputTextModule,
-    TextareaModule ,
+    TextareaModule,
     DatePicker,
     CardModule,
     TagModule,
@@ -98,7 +98,7 @@ export class AgendamentosComponent {
   visible: boolean = false;
   dialogType: string = '';
 
-  
+
   newAgendamento = {
     date: new Date(),
     time: '',
@@ -134,6 +134,7 @@ export class AgendamentosComponent {
     { label: 'Dra. Ana Oliveira', value: 'Dra. Ana Oliveira' },
     { label: 'Dr. Roberto Lima', value: 'Dr. Roberto Lima' }
   ];
+
 
   getSeverity(status: string) {
     switch (status) {

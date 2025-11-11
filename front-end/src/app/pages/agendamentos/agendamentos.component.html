@@ -245,6 +245,17 @@
           placeholder="Selecione o médico"
         />
       </div>
+      
+      <div class="form-group">
+        <label>Status</label>
+        <p-select
+          [options]="statusOptions"
+          [(ngModel)]="newAgendamento.status"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Selecione o status"
+        />
+      </div>
 
       <div class="form-group">
         <label>Observações</label>

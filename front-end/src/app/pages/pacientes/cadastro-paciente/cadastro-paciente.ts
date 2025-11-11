@@ -66,18 +66,17 @@ export class CadastroPaciente implements OnInit {
   }
 
   carregarAlergias() {
-    this.http.get<string[]>('assets/dados/alergias.json').subscribe({
-      next: (dados) => {
-        this.alergiasOptions = dados.map(a => ({
-          label: a,
-          value: a
-        }));
-      },
-      error: (err) => {
-        console.error('Erro ao carregar alergias locais:', err);
-        this.alergiasOptions = [];
-      }
-    });
+    this.alergiasOptions = [
+      "Poeira",
+      "Lactose",
+      "Amendoim",
+      "Glúten",
+      "Frutos do mar",
+      "Picada de insetos",
+      "Pólen",
+      "Medicamentos",
+      "Animais domésticos"
+    ]
   }
 
   buscarEndereco() {
