@@ -5,14 +5,8 @@
   flex-direction: column;
   gap: 2rem;
   background-color: var(--surface-ground);
-  animation: fadeIn 0.6s ease-in-out;
 }
 
-/* ANIMAÇÕES SUAVES */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 /* SEÇÃO DE BOAS-VINDAS */
 .welcome-section {
@@ -131,6 +125,18 @@
   &.bg-green-500 { background: #10B981; }
   &.bg-orange-500 { background: #F59E0B; }
   &.bg-purple-500 { background: #8B5CF6; }
+}
+
+i.pi,
+span.pi {
+  transition: transform 0.2s ease;
+  transform: translateY(3px); // move o ícone um pouco para baixo para compensar o hover
+}
+
+.metric-card:hover i.pi,
+.quick-button:hover span.pi,
+.welcome-section:hover i.pi {
+  transform: translateY(0) !important; // mantém o ícone parado quando o card sobe
 }
 
 .metric-info {
