@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
@@ -8,6 +8,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { SelectModule } from 'primeng/select';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadastro-paciente',
@@ -22,11 +24,13 @@ import { SelectModule } from 'primeng/select';
     SelectModule,
     ButtonModule,
     ToastModule,
-    NgxMaskDirective
+    MultiSelectModule,
+    NgxMaskDirective,
+    HttpClientModule
   ],
   providers: [MessageService, provideNgxMask()]
 })
-export class CadastroPaciente {
+export class CadastroPaciente implements OnInit {
   form: FormGroup;
   sexos = [
     { label: 'Masculino', value: 'M' },
@@ -34,25 +38,74 @@ export class CadastroPaciente {
     { label: 'Outro', value: 'O' }
   ];
 
-  constructor(private fb: FormBuilder, private messageService: MessageService) {
+  alergiasOptions: any[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    private http: HttpClient
+  ) {
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.maxLength(100)]],
       cpf: ['', [Validators.required]],
       telefone: ['', [Validators.required]],
       sexo: ['', Validators.required],
-      idade: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-      endereco: ['']
+      dataNascimento: ['', Validators.required],
+      cep: ['', Validators.required],
+      endereco: [''],
+      cidade: [''],
+      estado: [''],
+      nomeContatoEmergencia: ['', Validators.required],
+      telefoneContatoEmergencia: ['', Validators.required],
+      alergias: [[]]
     });
   }
 
-  somenteNumeros(event: any) {
-    const valor = event.target.value.replace(/\D/g, '');
-    event.target.value = valor;
-    this.form.get('idade')?.setValue(valor);
+  ngOnInit(): void {
+    this.carregarAlergias();
+  }
+
+  carregarAlergias() {
+    this.http.get<string[]>('assets/dados/alergias.json').subscribe({
+      next: (dados) => {
+        this.alergiasOptions = dados.map(a => ({
+          label: a,
+          value: a
+        }));
+      },
+      error: (err) => {
+        console.error('Erro ao carregar alergias locais:', err);
+        this.alergiasOptions = [];
+      }
+    });
+  }
+
+  buscarEndereco() {
+    const cep = this.form.get('cep')?.value?.replace(/\D/g, '');
+    if (cep?.length === 8) {
+      this.http.get<any>(`https://viacep.com.br/ws/${cep}/json/`).subscribe({
+        next: (dados) => {
+          if (!dados.erro) {
+            this.form.patchValue({
+              endereco: dados.logradouro,
+              cidade: dados.localidade,
+              estado: dados.uf
+            });
+          } else {
+            this.messageService.add({ severity: 'warn', summary: 'CEP inválido', detail: 'Não encontrado.' });
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar CEP:', err);
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Falha ao buscar o CEP.' });
+        }
+      });
+    }
   }
 
   onSubmit() {
     if (this.form.valid) {
+      console.log('Paciente cadastrado:', this.form.value);
       this.messageService.add({
         severity: 'success',
         summary: 'Sucesso',

@@ -1,29 +1,27 @@
-from datetime import datetime
+from pydantic import BaseModel
+from typing import Optional, List
+from datetime import date, time
 
-from pydantic import BaseModel, Field
+class PacienteBase(BaseModel):
+    nome: str
+    cpf: str
+    telefone: Optional[str]
+    sexo: Optional[str]
+    data_nascimento: Optional[date]
+    cep: Optional[str]
+    endereco: Optional[str]
+    cidade: Optional[str]
+    estado: Optional[str]
+    nome_contato_emergencia: Optional[str]
+    telefone_contato_emergencia: Optional[str]
+    alergias: Optional[List[str]] = []
+    tipo_sanguineo: Optional[str]
 
+class PacienteCreate(PacienteBase):
+    pass
 
-# Entidade
-class Paciente(BaseModel):
-    id: int = Field()
-    nome: str = Field()
-    tipo_sanguineo: str = Field()
-    contato_emergencia_numero: str = Field()
-    contato_emergencia: str = Field()
+class Paciente(PacienteBase):
+    id: int
 
     class Config:
-        populate_by_name = True
-
-
-class PacienteCadastro(BaseModel):
-    nome: str = Field()
-    tipo_sanguineo: str = Field(alias="tipoSanguineo")
-    contato_emergencia_numero: str = Field(alias="contatoEmergenciaNumero")
-    contato_emergencia: str = Field(alias="contatoEmergencia")
-
-
-# class AlunoEditar(BaseModel):
-#     nome: str = Field()
-#     sobrenome: str = Field()
-#     cpf: str = Field()
-#     data_nascimento: datetime = Field(alias="dataNascimento")
+        orm_mode = True

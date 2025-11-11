@@ -6,7 +6,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { DialogModule } from 'primeng/dialog';
 import { PacientesComponent } from '../detalhe-paciente/pacientes.component';
 
@@ -24,6 +24,7 @@ import { PacientesComponent } from '../detalhe-paciente/pacientes.component';
     RouterLink,
     DialogModule,
     PacientesComponent,
+
   ],
   templateUrl: './lista-pacientes.html',
   styleUrl: './lista-pacientes.scss'

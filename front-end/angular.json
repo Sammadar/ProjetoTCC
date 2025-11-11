@@ -40,19 +40,19 @@
                     },
                     "configurations": {
                         "production": {
-                          "budgets": [
-                            {
-                              "type": "initial",
-                              "maximumWarning": "2MB",
-                              "maximumError": "3MB"
-                            },
-                            {
-                              "type": "anyComponentStyle",
-                              "maximumWarning": "4kB",
-                              "maximumError": "8kB"
-                            }
-                          ],
-                          "outputHashing": "all"
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2MB",
+                                    "maximumError": "3MB"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "4kB",
+                                    "maximumError": "8kB"
+                                }
+                            ],
+                            "outputHashing": "all"
                         },
                         "development": {
                             "optimization": false,
@@ -87,10 +87,8 @@
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                            {
-                                "glob": "**/*",
-                                "input": "public"
-                            }
+                            "src/favicon.ico",
+                            "src/assets"
                         ],
                         "styles": [
                             "src/assets/styles.scss"
@@ -102,6 +100,6 @@
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }

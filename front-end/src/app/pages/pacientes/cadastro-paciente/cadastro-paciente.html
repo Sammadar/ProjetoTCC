@@ -5,44 +5,76 @@
 
     <div class="field">
       <label>Nome</label>
-      <input pInputText formControlName="nome" maxlength="100" placeholder="Digite o nome completo"/>
+      <input pInputText formControlName="nome" placeholder="Digite o nome completo" />
     </div>
 
     <div class="field">
       <label>CPF</label>
-      <input
-        pInputText
-        formControlName="cpf"
-        mask="000.000.000-00"
-        placeholder="000.000.000-00"
-        [dropSpecialCharacters]="false"
-      />
+      <input pInputText formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00"
+        [dropSpecialCharacters]="false" />
     </div>
 
     <div class="field">
       <label>Telefone</label>
-      <input
-        pInputText
-        formControlName="telefone"
-        mask="(00) 00000-0000"
-        placeholder="(00) 00000-0000"
-        [dropSpecialCharacters]="false"
-      />
+      <input pInputText formControlName="telefone" mask="(00) 00000-0000" placeholder="(00) 00000-0000"
+        [dropSpecialCharacters]="false" />
     </div>
 
     <div class="field">
       <label>Sexo</label>
-      <p-select [options]="sexos" formControlName="sexo" placeholder="Selecione o sexo" optionLabel="label" optionValue="value"></p-select>
+      <p-select [options]="sexos" formControlName="sexo" placeholder="Selecione o sexo" optionLabel="label"
+        optionValue="value"></p-select>
     </div>
 
     <div class="field">
-      <label>Idade</label>
-      <input pInputText formControlName="idade" placeholder="Ex: 35" maxlength="3" (input)="somenteNumeros($event)"/>
+      <label>Data de Nascimento</label>
+      <input type="date" pInputText formControlName="dataNascimento" />
+    </div>
+
+    <div class="field">
+      <label>CEP</label>
+      <input pInputText formControlName="cep" mask="00000-000" placeholder="Digite o CEP" (blur)="buscarEndereco()" />
     </div>
 
     <div class="field">
       <label>Endereço</label>
-      <input pInputText formControlName="endereco" placeholder="Rua, nº, bairro"/>
+      <input pInputText formControlName="endereco" placeholder="Rua, nº, bairro" />
+    </div>
+
+    <div class="field">
+      <label>Cidade</label>
+      <input pInputText formControlName="cidade" placeholder="Digite a cidade" />
+    </div>
+
+    <div class="field">
+      <label>Estado</label>
+      <input pInputText formControlName="estado" placeholder="Ex: SP" maxlength="2" />
+    </div>
+
+    <div class="field">
+      <label>Nome do Contato de Emergência</label>
+      <input pInputText formControlName="nomeContatoEmergencia" placeholder="Digite o nome do contato" />
+    </div>
+
+    <div class="field">
+      <label>Telefone do Contato de Emergência</label>
+      <input pInputText formControlName="telefoneContatoEmergencia" mask="(00) 00000-0000" placeholder="(00) 00000-0000"
+        [dropSpecialCharacters]="false" />
+    </div>
+
+    <div class="field">
+      <label>Alergias</label>
+      <p-multiSelect [options]="alergiasOptions" formControlName="alergias" optionLabel="label" optionValue="value"
+        placeholder="Selecione alergias" [filter]="true" filterPlaceholder="Pesquisar..." display="chip">
+      </p-multiSelect>
+    </div>
+
+    <!-- Exibe alergias selecionadas abaixo -->
+    <div class="alergias-lista" *ngIf="form.get('alergias')?.value?.length">
+      <h4>Alergias selecionadas:</h4>
+      <ul>
+        <li *ngFor="let alergia of form.get('alergias')?.value">{{ alergia }}</li>
+      </ul>
     </div>
 
     <button pButton type="submit" label="Salvar" class="mt-3"></button>
