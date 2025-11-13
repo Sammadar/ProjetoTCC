@@ -1,12 +1,4 @@
 <div class="dashboard-page">
-  <!-- Boas-vindas -->
-  <!-- <section class="welcome-section">
-    <div class="welcome-text">
-      <h1>Bem-vindo(a) de volta, Dr(a). {{ 'usuarioNome' }}!</h1>
-      <p>Aqui está um resumo das suas atividades e métricas mais recentes.</p>
-    </div>
-    <i class="pi pi-chart-line welcome-icon"></i>
-  </section> -->
 
   <!-- Métricas principais -->
   <section class="metrics-section">
@@ -64,9 +56,7 @@
   <section class="tables-section">
     <h2 class="section-title">Consultas de Hoje</h2>
     <p-card class="table-card">
-      <!-- <div class="card-actions">
-        <button pButton icon="pi pi-plus" label="Nova Consulta" routerLink="/agendamentos" class="p-button-sm"></button>
-      </div> -->
+      
       <p-table [value]="consultasRecentes">
         <ng-template pTemplate="header">
           <tr>
@@ -85,10 +75,6 @@
             <td>{{ consulta.tipo }}</td>
             <td>{{ consulta.medico }}</td>
             <td><p-tag [value]="consulta.status" [severity]="getSeverity(consulta.status)"></p-tag></td>
-            <td>
-              <!-- <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"></button>
-              <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"></button> -->
-            </td>
           </tr>
         </ng-template>
       </p-table>

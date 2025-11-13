@@ -2,12 +2,7 @@
   <!-- Cabeçalho -->
   <header class="page-header">
     <h1>Agendamentos</h1>
-    <button
-      pButton
-      icon="pi pi-plus"
-      label="Novo Agendamento"
-      (click)="showDialog('newAgendamento')"
-    ></button>
+    <button pButton icon="pi pi-plus" label="Novo Agendamento" (click)="showDialog('newAgendamento')"></button>
   </header>
 
   <!-- Tabs -->
@@ -15,39 +10,31 @@
     <p-tablist>
       <p-tab value="Agenda">Agenda</p-tab>
       <p-tab value="Consultas">Consultas</p-tab>
-      <p-tab value="Pacientes">Pacientes</p-tab>
     </p-tablist>
 
     <!-- === AGENDA === -->
     <p-tabpanel value="Agenda">
       <section class="agenda-section">
         @for (schedule of schedules; track schedule.date) {
-        <p-card
-          [header]="(schedule.date | date: 'fullDate') || ''"
-          styleClass="day-card"
-        >
+        <p-card [header]="(schedule.date | date: 'fullDate') || ''" styleClass="day-card">
           <div class="agendamentos-list">
             @if (schedule.agendamentos.length > 0) {
-              @for (agendamento of schedule.agendamentos; track agendamento.id) {
-              <div class="agendamento-item">
-                <div class="agendamento-time">{{ agendamento.time }}</div>
+            @for (agendamento of schedule.agendamentos; track agendamento.id) {
+            <div class="agendamento-item">
+              <div class="agendamento-time">{{ agendamento.time }}</div>
 
-                <div class="agendamento-details">
-                  <strong>{{ agendamento.patientName }}</strong>
-                  <small class="text-muted">
-                    {{ agendamento.type }} • {{ agendamento.doctor }}
-                  </small>
-                </div>
-
-                <div class="agendamento-actions">
-                  <p-tag
-                    [value]="agendamento.status"
-                    [severity]="getSeverity(agendamento.status)"
-                  ></p-tag>
-                  <!-- <button pButton icon="pi pi-ellipsis-v" class="p-button-text"></button> -->
-                </div>
+              <div class="agendamento-details">
+                <strong>{{ agendamento.patientName }}</strong>
+                <small class="text-muted">
+                  {{ agendamento.type }} • {{ agendamento.doctor }}
+                </small>
               </div>
-              }
+
+              <div class="agendamento-actions">
+                <p-tag [value]="agendamento.status" [severity]="getSeverity(agendamento.status)"></p-tag>
+              </div>
+            </div>
+            }
             } @else {
             <div class="no-agendamentos">Nenhum agendamento para esta data</div>
             }
@@ -64,46 +51,25 @@
         <div class="filters">
           <div class="filter-group">
             <label>Status</label>
-            <p-select
-              [options]="statusOptions"
-              [(ngModel)]="statusFilter"
-              optionLabel="label"
-              optionValue="value"
-              [showClear]="true"
-              placeholder="Filtrar por status"
-            />
+            <p-select [options]="statusOptions" [(ngModel)]="statusFilter" optionLabel="label" optionValue="value"
+              [showClear]="true" placeholder="Filtrar por status" />
           </div>
 
           <div class="filter-group">
             <label>Data</label>
-            <p-datepicker
-              [(ngModel)]="dateFilter"
-              [showIcon]="true"
-              [showClear]="true"
-              dateFormat="dd/mm/yy"
-              placeholder="Filtrar por data"
-            />
+            <p-datepicker [(ngModel)]="dateFilter" [showIcon]="true" [showClear]="true" dateFormat="dd/mm/yy"
+              placeholder="Filtrar por data" />
           </div>
 
           <div class="filter-group">
             <label>Médico</label>
-            <p-select
-              [options]="doctors"
-              [(ngModel)]="doctorFilter"
-              optionLabel="label"
-              optionValue="value"
-              [showClear]="true"
-              placeholder="Filtrar por médico"
-            />
+            <p-select [options]="doctors" [(ngModel)]="doctorFilter" optionLabel="label" optionValue="value"
+              [showClear]="true" placeholder="Filtrar por médico" />
           </div>
         </div>
 
         <!-- Tabela de Consultas -->
-        <p-table
-          [value]="getFilteredAgendamentos()"
-          [tableStyle]="{ 'min-width': '60rem' }"
-          class="consultas-table"
-        >
+        <p-table [value]="getFilteredAgendamentos()" [tableStyle]="{ 'min-width': '60rem' }" class="consultas-table">
           <ng-template pTemplate="header">
             <tr>
               <th>Paciente</th>
@@ -128,64 +94,12 @@
               <td>{{ agendamento.type }}</td>
               <td>{{ agendamento.doctor }}</td>
               <td>
-                <p-tag
-                  [value]="agendamento.status"
-                  [severity]="getSeverity(agendamento.status)"
-                ></p-tag>
+                <p-tag [value]="agendamento.status" [severity]="getSeverity(agendamento.status)"></p-tag>
               </td>
               <td class="actions">
-                <button pButton icon="pi pi-eye" class="p-button-text" pTooltip="Ver detalhes"></button>
-                <button pButton icon="pi pi-pencil" class="p-button-text" pTooltip="Editar"></button>
-                <button
-                  pButton
-                  icon="pi pi-trash"
-                  class="p-button-text p-button-danger"
-                  pTooltip="Cancelar"
-                ></button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </section>
-    </p-tabpanel>
-
-    <!-- === PACIENTES === -->
-    <p-tabpanel value="Pacientes">
-      <section class="pacientes-section">
-        <p-table [value]="patients" [tableStyle]="{ 'min-width': '60rem' }">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>Paciente</th>
-              <th>Contato</th>
-              <th>Última Consulta</th>
-              <th>Próxima Consulta</th>
-              <th>Ações</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-patient>
-            <tr>
-              <td>
-                <strong>{{ patient.name }}</strong><br />
-                <small class="text-muted">ID: {{ patient.id }}</small>
-              </td>
-              <td>
-                {{ patient.phone }}<br />
-                <small class="text-muted">{{ patient.email }}</small>
-              </td>
-              <td>{{ patient.lastAppointment | date: 'dd/MM/yyyy' }}</td>
-              <td>
-                @if (patient.nextAppointment) {
-                <span class="next-agendamento">
-                  {{ patient.nextAppointment | date: 'dd/MM/yyyy' }}
-                </span>
-                } @else {
-                <span class="no-agendamento">Sem agendamento</span>
-                }
-              </td>
-              <td class="actions">
-                <button pButton icon="pi pi-calendar-plus" class="p-button-text" pTooltip="Agendar consulta"></button>
-                <button pButton icon="pi pi-eye" class="p-button-text" pTooltip="Ver prontuário"></button>
-                <button pButton icon="pi pi-phone" class="p-button-text" pTooltip="Contatar"></button>
+                <button pButton icon="pi pi-pencil" class="p-button-text" pTooltip="Editar"
+                  (click)="showDialog('edit', agendamento)"></button>
+                <button pButton icon="pi pi-trash" class="p-button-text p-button-danger" pTooltip="Cancelar"></button>
               </td>
             </tr>
           </ng-template>
@@ -194,24 +108,20 @@
     </p-tabpanel>
   </p-tabs>
 
-  <!-- Dialog Novo Agendamento -->
+  <!--  Dialog único (Novo / Editar Agendamento) -->
   <p-dialog
-    header="Novo Agendamento"
+    [header]="dialogType === 'newAgendamento' ? 'Novo Agendamento' : 'Editar Agendamento'"
     [(visible)]="visible"
     [modal]="true"
-    [style]="{ width: '480px' }"
+    [style]="{ width: '480px', maxHeight: '90vh' }"
+    [draggable]="false"
+    [resizable]="false"
   >
-    @if (dialogType === 'newAgendamento') {
     <div class="dialog-content">
       <div class="form-group">
         <label>Paciente</label>
-        <p-select
-          [options]="patients"
-          [(ngModel)]="newAgendamento.patientId"
-          optionLabel="name"
-          optionValue="id"
-          placeholder="Selecione o paciente"
-        />
+        <p-select [options]="patients" [(ngModel)]="newAgendamento.patientId" optionLabel="name" optionValue="id"
+          placeholder="Selecione o paciente" />
       </div>
 
       <div class="form-group">
@@ -226,43 +136,29 @@
 
       <div class="form-group">
         <label>Tipo de Consulta</label>
-        <p-select
-          [options]="appointmentTypes"
-          [(ngModel)]="newAgendamento.type"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Selecione o tipo"
-        />
+        <p-select [options]="appointmentTypes" [(ngModel)]="newAgendamento.type" optionLabel="label" optionValue="value"
+          placeholder="Selecione o tipo" />
       </div>
 
       <div class="form-group">
         <label>Médico</label>
-        <p-select
-          [options]="doctors"
-          [(ngModel)]="newAgendamento.doctor"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Selecione o médico"
-        />
-      </div>
-      
-      <div class="form-group">
-        <label>Status</label>
-        <p-select
-          [options]="statusOptions"
-          [(ngModel)]="newAgendamento.status"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Selecione o status"
-        />
+        <p-select [options]="doctors" [(ngModel)]="newAgendamento.doctor" optionLabel="label" optionValue="value"
+          placeholder="Selecione o médico" />
       </div>
 
+      <div class="form-group">
+        <label>Status</label>
+        <p-select [options]="statusOptions" [(ngModel)]="newAgendamento.status" optionLabel="label" optionValue="value"
+          placeholder="Selecione o status" />
+      </div>
+
+      @if (dialogType === 'newAgendamento') {
       <div class="form-group">
         <label>Observações</label>
         <textarea pInputTextarea [(ngModel)]="newAgendamento.notes" rows="3"></textarea>
       </div>
+      }
     </div>
-    }
 
     <ng-template pTemplate="footer">
       <button pButton label="Cancelar" icon="pi pi-times" (click)="visible = false" class="p-button-text"></button>

@@ -2,7 +2,6 @@
   <!-- Header com Modo Emergência -->
   <div class="page-header">
     <div class="header-left">
-      
       <p-card class="patient-info-card">
         <div class="patient-info">
           <h3>{{ selectedPatient.name }}</h3>
@@ -18,16 +17,6 @@
         </div>
       </p-card>
     </div>
-
-    <div class="header-right">
-      <p-toggleButton [onLabel]="emergencyMode ? 'EMERGÊNCIA' : 'Modo Normal'"
-        [offLabel]="emergencyMode ? 'EMERGÊNCIA' : 'Modo Normal'"
-        [onIcon]="emergencyMode ? 'pi pi-exclamation-triangle' : 'pi pi-shield'"
-        [offIcon]="emergencyMode ? 'pi pi-exclamation-triangle' : 'pi pi-shield'"
-        [styleClass]="emergencyMode ? 'emergency-toggle emergency-active' : 'emergency-toggle'"
-        [(ngModel)]="emergencyMode" (onChange)="toggleEmergencyMode()">
-      </p-toggleButton>
-    </div>
   </div>
 </div>
 
@@ -41,16 +30,12 @@
   </p-tablist>
 
   <p-tabpanels>
-
-    <!-- Abas Principais -->
-
     <!-- Histórico Familiar -->
     <p-tabpanel value="0">
       <div class="tab-header">
         <h3>Histórico Familiar</h3>
         <button pButton icon="pi pi-plus" label="Adicionar" (click)="showDialog('Familiar')"></button>
       </div>
-
       <p-table [value]="familyHistory" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
           <tr>
@@ -80,7 +65,6 @@
         <h3>Antecedentes Clínicos</h3>
         <button pButton icon="pi pi-plus" label="Adicionar" (click)="showDialog('clinical')"></button>
       </div>
-
       <p-table [value]="clinicalHistory" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
           <tr>
@@ -94,9 +78,7 @@
           <tr>
             <td>{{ history.condition }}</td>
             <td>{{ history.diagnosisDate | date:'dd/MM/yyyy' }}</td>
-            <td>
-              <p-tag [value]="history.status" [severity]="getSeverity(history.status)"></p-tag>
-            </td>
+            <td><p-tag [value]="history.status" [severity]="getSeverity(history.status)"></p-tag></td>
             <td>
               <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
               <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"></button>
@@ -110,7 +92,7 @@
     <p-tabpanel value="2">
       <div class="tab-header">
         <h3>Exames Realizados</h3>
-        <button pButton icon="pi pi-plus" label="Novo Exame" (click)="showDialog('exam')"></button>
+        <button pButton icon="pi pi-plus" label="Solicitar Exame" (click)="showDialog('exam')"></button>
       </div>
 
       <p-table [value]="exams" [tableStyle]="{'min-width': '50rem'}">
@@ -123,22 +105,58 @@
             <th>Ações</th>
           </tr>
         </ng-template>
+
         <ng-template pTemplate="body" let-exam>
           <tr>
             <td>{{ exam.name }}</td>
             <td>{{ exam.date | date:'dd/MM/yyyy' }}</td>
             <td>{{ exam.result }}</td>
-            <td>
-              <p-tag [value]="exam.status" [severity]="getSeverity(exam.status)"></p-tag>
-            </td>
-            <td>
-              <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text"></button>
-              <button pButton icon="pi pi-download" class="p-button-rounded p-button-text"></button>
+            <td><p-tag [value]="exam.status" [severity]="getSeverity(exam.status)"></p-tag></td>
+            <td class="actions-col">
+              <!-- Visualizar -->
+              <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" (click)="viewExam(exam)"></button>
+              <!-- Upload (básico, do lado do exame) -->
+              <p-fileUpload mode="basic" name="examFile" chooseLabel="" chooseIcon="pi pi-upload"
+                (onSelect)="onUpload($event, exam)" [auto]="true" [customUpload]="true" accept=".pdf,.png,.jpg,.jpeg"
+                styleClass="p-button-rounded p-button-text">
+              </p-fileUpload>
             </td>
           </tr>
         </ng-template>
       </p-table>
     </p-tabpanel>
+
+    <!-- Dialog de visualização do exame -->
+    <p-dialog header="Visualizar Exame" [(visible)]="showExamDialog" [modal]="true"
+      [style]="{ width: '80vw', height: '80vh' }" [closable]="true" [dismissableMask]="true">
+      <div *ngIf="selectedExam" class="exam-view">
+        <div class="exam-view-header">
+          <div>
+            <h3>{{ selectedExam.name }}</h3>
+            <p>{{ selectedExam.date | date:'dd/MM/yyyy' }} — {{ selectedExam.fileName || '' }}</p>
+          </div>
+          <div class="exam-view-actions">
+            <button pButton icon="pi pi-download" class="p-button-rounded p-button-text" *ngIf="selectedExam.fileUrl"
+              (click)="downloadExam(selectedExam)"></button>
+            <button pButton icon="pi pi-expand" class="p-button-rounded p-button-text"
+              *ngIf="selectedExam.fileUrl && selectedExam.fileUrl.includes('image/')"
+              (click)="toggleFullscreen()"></button>
+            <button pButton label="Fechar" icon="pi pi-times" class="p-button-text"
+              (click)="showExamDialog = false"></button>
+          </div>
+        </div>
+
+        <div class="exam-preview">
+          <!-- PDF -->
+          <iframe *ngIf="selectedExam.fileUrl && selectedExam.fileUrl.includes('application/pdf')"
+            [src]="selectedExam.fileUrl" width="100%" height="100%"></iframe>
+
+          <!-- Imagem -->
+          <img *ngIf="selectedExam.fileUrl && selectedExam.fileUrl.includes('image/')" [src]="selectedExam.fileUrl"
+            alt="Exame" [class.fullscreen]="isFullscreen" />
+        </div>
+      </div>
+    </p-dialog>
 
     <!-- Prontuário -->
     <p-tabpanel value="3">
@@ -146,7 +164,6 @@
         <h3>Prontuário Médico</h3>
         <button pButton icon="pi pi-plus" label="Nova Anotação" (click)="showDialog('record')"></button>
       </div>
-
       <div class="medical-records">
         <div *ngFor="let record of medicalRecords" class="record-card">
           <p-card>
@@ -169,7 +186,6 @@
         <h3>Medicação Atual</h3>
         <button pButton icon="pi pi-plus" label="Novo Medicamento" (click)="showDialog('medication')"></button>
       </div>
-
       <p-table [value]="medications" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
           <tr>
@@ -198,4 +214,3 @@
     </p-tabpanel>
   </p-tabpanels>
 </p-tabs>
-

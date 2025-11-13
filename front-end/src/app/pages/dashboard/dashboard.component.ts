@@ -92,13 +92,6 @@ export class DashboardComponent implements OnInit {
       icon: 'pi pi-chart-bar',
       color: 'bg-orange-500'
     },
-    {
-      label: 'Receita Mensal',
-      value: 85420,
-      variation: 15,
-      icon: 'pi pi-dollar',
-      color: 'bg-purple-500'
-    }
   ];
 
   // Consultas recentes

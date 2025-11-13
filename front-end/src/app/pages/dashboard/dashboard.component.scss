@@ -7,47 +7,6 @@
   background-color: var(--surface-ground);
 }
 
-
-/* SEÇÃO DE BOAS-VINDAS */
-.welcome-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(135deg, #7fb6cf 0%, #7a7cce 100%);
-  color: #fff;
-  padding: 2rem 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fadeIn 0.8s ease-in-out;
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  }
-
-  .welcome-text {
-    h1 {
-      font-size: 1.9rem;
-      margin: 0 0 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
-
-    p {
-      margin: 0;
-      font-size: 1.05rem;
-      opacity: 0.95;
-    }
-  }
-
-  .welcome-icon {
-    font-size: 3rem;
-    opacity: 0.95;
-  }
-}
-
 /* === HEADER === */
 .page-header {
   .header-content {
@@ -124,7 +83,6 @@
   &.bg-blue-500 { background: #3B82F6; }
   &.bg-green-500 { background: #10B981; }
   &.bg-orange-500 { background: #F59E0B; }
-  &.bg-purple-500 { background: #8B5CF6; }
 }
 
 i.pi,
@@ -206,7 +164,7 @@ button:hover span.p-button-icon{
 
     &.agendamentos { background-color: #42a5f5; }
     &.pacientes { background-color: #e98177; }
-    &.relatorios { background-color: #69c357; }
+  
 
     &:hover {
       transform: translateY(-4px);

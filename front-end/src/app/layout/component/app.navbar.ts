@@ -10,7 +10,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       <a routerLink="/dashboard" routerLinkActive="active" class="subnav-item">Dashboard</a>
       <a routerLink="/agendamentos" routerLinkActive="active" class="subnav-item">Agendamentos</a>
       <a routerLink="/lista-pacientes" routerLinkActive="active" class="subnav-item">Pacientes</a>
-      <a routerLink="/configuracoes" routerLinkActive="active" class="subnav-item">Configurações</a>
     </nav>
   `,
   styles: [`

@@ -11,10 +11,10 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { FormsModule } from '@angular/forms';
 import { TabsModule } from 'primeng/tabs';
 import { DatePickerModule } from 'primeng/datepicker';
+import { FileUploadModule } from 'primeng/fileupload';
 import { BrowserModule } from '@angular/platform-browser';
 import { NovoPaciente } from '@/models/paciente';
 import { PacientesService } from '../../service/pacientes.service';
-
 
 interface Pacientes {
   id: number;
@@ -39,6 +39,8 @@ interface Exam {
   date: Date;
   result: string;
   status: string;
+  fileUrl?: string; // caminho do arquivo (base64)
+  fileName?: string; // nome do arquivo
 }
 
 interface Medication {
@@ -48,8 +50,6 @@ interface Medication {
   startDate: Date;
   endDate: Date;
 }
-
-
 
 @Component({
   selector: 'app-patients',
@@ -67,18 +67,24 @@ interface Medication {
     TagModule,
     ToggleButtonModule,
     TabsModule,
-
-
+    FileUploadModule,
   ],
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.scss']
 })
 export class PacientesComponent {
+toggleFullscreen() {
+throw new Error('Method not implemented.');
+}
+isFullscreen: any;
+downloadExam(arg0: Exam) {
+throw new Error('Method not implemented.');
+}
   novoPaciente: any;
   tipoSanguineo: any;
   nomeNumeroEmergencia: any;
 
-  constructor(private pacientesService: PacientesService){}
+  constructor(private pacientesService: PacientesService) {}
 
   paciente: NovoPaciente = {
     nome: "",
@@ -86,6 +92,7 @@ export class PacientesComponent {
     contatoEmergencia: "",
     contatoEmergenciaNumero: "",
   }
+
   // Dados do paciente selecionado
   selectedPatient: Pacientes = {
     id: 1,
@@ -111,7 +118,7 @@ export class PacientesComponent {
   clinicalHistory = [
     { condition: 'Hipertensão', diagnosisDate: new Date('2018-03-15'), status: 'Controlada' },
     { condition: 'Diabetes Tipo 2', diagnosisDate: new Date('2020-07-20'), status: 'Controlada' },
-    { condition: 'Asma', diagnosisDate: new Date('2015-11-10'), status: 'Inativa' }
+    { condition: 'Asma', diagnosisDate: new Date('2015-11-10'), status: 'Em tratamento' }
   ];
 
   // Exames
@@ -137,46 +144,54 @@ export class PacientesComponent {
 
   // Dialog states
   visible: boolean = false;
+  showExamDialog: boolean = false;
+  selectedExam: Exam | null = null;
+
   newFamilyMember: any = {};
   newClinicalHistory: any = {};
   newExam: any = {};
   newMedication: any = {};
   newMedicalRecord: any = {};
-  patients: any;
-  pacientes: any;
-  NovoPaciente: any;
-  appointmentTypes: any;
 
   toggleEmergencyMode() {
     this.emergencyMode = !this.emergencyMode;
     if (this.emergencyMode) {
-      // Aqui você pode adicionar lógica para modo emergência
       console.log('MODO EMERGÊNCIA ATIVADO');
     }
   }
 
   showDialog(dialogType: string) {
     this.visible = true;
-    // Lógica para diferentes tipos de diálogo pode ser adicionada aqui
-    // }
-    // editPaciente(p: NovoPaciente) {
-    //   // lógica de edição…
-    // }
+  }
 
-    // deletePaciente(p: NovoPaciente) {
-    //   // lógica de exclusão…
-    // }
+  // Função de upload do exame
+  onUpload(event: any, exam: Exam) {
+    const file = event.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        exam.fileUrl = e.target.result;
+        exam.fileName = file.name;
+        exam.status = 'Concluído';
+        exam.result = 'Arquivo anexado';
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
-    // onCancel() {
-    //   // lógica de cancelar…
-    // }
-
-    // onSave() {
-    //   // lógica de salvar…
+  // Visualizar exame
+  viewExam(exam: Exam) {
+    if (!exam.fileUrl) {
+      alert('Nenhum arquivo foi anexado a este exame.');
+      return;
+    }
+    this.selectedExam = exam;
+    this.showExamDialog = true;
   }
 
   getSeverity(status: string) {
     switch (status) {
+      case 'Controlada':
       case 'Concluído':
         return 'success';
       case 'Agendado':
@@ -189,9 +204,9 @@ export class PacientesComponent {
   }
 
   cadastrar() {
- this.pacientesService.cadastrar(this.paciente).subscribe({
+    this.pacientesService.cadastrar(this.paciente).subscribe({
       next: aluno => alert("deu boa!"),
       error: erro => console.log("Ocorreu um erro ao cadastrar o aluno:" + erro),
-    })
+    });
   }
 }
