@@ -13,10 +13,11 @@ API padronizada, para onde esses sistemas enviam e de onde consomem o prontuári
 > Projeto acadêmico, em desenvolvimento. Esta versão implementa o núcleo da plataforma:
 > cadastro e ficha do paciente, agenda de atendimentos e um painel de acompanhamento.
 
-<!-- Prints: salve as imagens em docs/ e troque os nomes abaixo -->
+<!-- Prints das telas: salvar em docs/ (dashboard.png, paciente.png, agenda.png) e incluir aqui
 | Dashboard | Ficha do paciente | Agenda |
 |---|---|---|
 | ![Dashboard](docs/dashboard.png) | ![Ficha do paciente](docs/paciente.png) | ![Agenda](docs/agenda.png) |
+-->
 
 ## O que já existe
 
