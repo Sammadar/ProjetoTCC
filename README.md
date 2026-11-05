@@ -10,8 +10,10 @@ de saúde e laboratório guarda seus próprios dados, em formatos diferentes, e 
 exames e receitas de um lugar para o outro. O CuraSystem propõe uma camada central, com uma
 API padronizada, para onde esses sistemas enviam e de onde consomem o prontuário.
 
-> Projeto acadêmico, em desenvolvimento. Esta versão implementa o núcleo da plataforma:
-> cadastro e ficha do paciente, agenda de atendimentos e um painel de acompanhamento.
+> Projeto acadêmico. O que está pronto é o **front-end**, desenvolvido para a apresentação do
+> TCC: cadastro e ficha do paciente, agenda de atendimentos e painel, hoje com dados de exemplo
+> na própria tela. O **back-end** é um esqueleto inicial (modelos e rotas de pacientes e
+> agendamentos em FastAPI) que ainda não foi integrado ao front.
 
 <p align="center"><img src="docs/passeio.gif" alt="Passeio pelas telas do CuraSystem" width="720"></p>
 
