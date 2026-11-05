@@ -13,6 +13,8 @@ API padronizada, para onde esses sistemas enviam e de onde consomem o prontuári
 > Projeto acadêmico, em desenvolvimento. Esta versão implementa o núcleo da plataforma:
 > cadastro e ficha do paciente, agenda de atendimentos e um painel de acompanhamento.
 
+<p align="center"><img src="docs/passeio.gif" alt="Passeio pelas telas do CuraSystem" width="720"></p>
+
 | Dashboard | Prontuário do paciente |
 |---|---|
 | ![Dashboard](docs/dashboard.jpg) | ![Prontuário do paciente](docs/paciente.jpg) |
